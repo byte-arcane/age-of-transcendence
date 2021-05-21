@@ -25,7 +25,7 @@ author:
 permalink: "/2020/12/09/more-autotiles-transitions-between-floor-types/"
 ---
 <p><!-- wp:image {"id":3167,"width":580,"height":326,"sizeSlug":"large"} --></p>
-<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/2020/12/image-5-1024x576.png" alt="" class="wp-image-3167" width="580" height="326" /><br />
+<figure class="wp-block-image size-large is-resized"><a href="{{ site.baseurl }}/assets/2020/12/image-5-1024x576.png"><img src="{{ site.baseurl }}/assets/2020/12/image-5-1024x576_thumb740.png" alt="" class="wp-image-3167" width="580" height="326" /></a><br />
 <figcaption>Smooth transitions on the ground layer, as an extra rendering pass</figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -36,7 +36,7 @@ permalink: "/2020/12/09/more-autotiles-transitions-between-floor-types/"
 <p>For this new pass, we need autotiles of the type "<a href="https://gamedev.stackexchange.com/a/148464/54367" class="rank-math-link">rug</a>" (so, just 16 of them)</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image {"width":580,"height":386} --></p>
-<figure class="wp-block-image is-resized"><img src="{{ site.baseurl }}/assets/2020/12/Jt3HhoL.png" alt="" width="580" height="386" /><br />
+<figure class="wp-block-image is-resized"><a href="{{ site.baseurl }}/assets/2020/12/Jt3HhoL.png"><img src="{{ site.baseurl }}/assets/2020/12/Jt3HhoL_thumb740.png" alt="" width="580" height="386" /></a><br />
 <figcaption>Autotile tool: left side: "canvas" + connections, right side: candidate tiles</figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -44,7 +44,7 @@ permalink: "/2020/12/09/more-autotiles-transitions-between-floor-types/"
 <p>I've developed a small Python tool that allows me to easily do that from an input set of files, so I'm just loading up some tiles from an <a href="https://www.oryxdesignlab.com/products/16-bit-fantasy-tileset" class="rank-math-link">Oryx tileset</a> and place them appropriately:</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/8czyQae.png" alt="" /><br />
+<figure class="wp-block-image"><a href="{{ site.baseurl }}/assets/2020/12/8czyQae.png"><img src="{{ site.baseurl }}/assets/2020/12/8czyQae_thumb740.png" alt="" /></a><br />
 <figcaption>Autotile tool: 16 clicks later (click-select tile on right, click-place tile on left)</figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -52,7 +52,7 @@ permalink: "/2020/12/09/more-autotiles-transitions-between-floor-types/"
 <p>The layout can be then exported and embedded in a texture atlas, to be used by the game. So, in game, before we apply the layer, the background tiles look like this:</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/Sf23yCd.png" alt="" /><br />
+<figure class="wp-block-image"><a href="{{ site.baseurl }}/assets/2020/12/Sf23yCd.png"><img src="{{ site.baseurl }}/assets/2020/12/Sf23yCd_thumb740.png" alt="" /></a><br />
 <figcaption>In-game base map layer with grass tiles and dungeon tiles</figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -60,7 +60,7 @@ permalink: "/2020/12/09/more-autotiles-transitions-between-floor-types/"
 <p>The new autotile layer is rendered after the background and before any other passes. My map tiles have zone IDs, so grass would be the outer zone (id == 1) and dungeon floor would be an inner zone (id == 2). If we are in an inner zone and we're on the boundary with an outer zone that has overlap tileset, we set the appropriate bits in a bitmask, that we're going to use to read the appropriate autotile. This results in the bottom image:</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/bOcbBRB.png" alt="" /><br />
+<figure class="wp-block-image"><a href="{{ site.baseurl }}/assets/2020/12/bOcbBRB.png"><img src="{{ site.baseurl }}/assets/2020/12/bOcbBRB_thumb740.png" alt="" /></a><br />
 <figcaption>Adding the grass overgrowth autotiles</figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -68,7 +68,7 @@ permalink: "/2020/12/09/more-autotiles-transitions-between-floor-types/"
 <p>Now we can add the rest of the passes, resulting in a nicely smooth transition:</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/syA2EVp.png" alt="https://i.imgur.com/syA2EVp.png" /><br />
+<figure class="wp-block-image"><a href="{{ site.baseurl }}/assets/2020/12/syA2EVp.png"><img src="{{ site.baseurl }}/assets/2020/12/syA2EVp_thumb740.png" alt="https://i.imgur.com/syA2EVp.png" /></a><br />
 <figcaption>Smooth transitions between blocking and non-blocking layers</figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -76,7 +76,7 @@ permalink: "/2020/12/09/more-autotiles-transitions-between-floor-types/"
 <p>And for reference, here's the same view without the new overlap pass:</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image {"id":3166,"sizeSlug":"large"} --></p>
-<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/2020/12/image-4.png" alt="" class="wp-image-3166" /><br />
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/assets/2020/12/image-4.png"><img src="{{ site.baseurl }}/assets/2020/12/image-4_thumb740.png" alt="" class="wp-image-3166" /></a><br />
 <figcaption>As above, but without using the new smooth overlap layer. Notice the gray square-y border in the grass, because of the underlying gray tiles</figcaption>
 </figure>
 <p><!-- /wp:image --></p>

@@ -22,7 +22,7 @@ author:
 permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 ---
 <p>Previously I generated <a href="{{ site.baseurl }}/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biomes-and-rivers/">procedural masks for biome and rivers,</a> but using constant color for each biome (river too). So, I ended up with nice outlines, but still the result was looking flat. So, I thought I'd add some procedural variation to the color using perlin noise. Needless to say, the result was underwhelming. So, after quite a bit of hunting, I rediscovered a website that I had stumbled upon years ago:  <a href="https://www.spriters-resource.com/">The Spriters Resource</a>! What got me really excited back then (even though I eventually forgot) is that I found there tile art for, among other games, <a href="https://en.wikipedia.org/wiki/Heroes_of_Might_and_Magic_III">Heroes of Might and Magic 3</a>!</p>
-<p><figure><img src="{{ site.baseurl }}/assets/2018/03/281245-bdmzafobvu.jpg" alt="" width="800" height="600" /><figcaption> Heroes of Might and Magic III</figcaption></p>
+<p><figure><a href="{{ site.baseurl }}/assets/2018/03/281245-bdmzafobvu.jpg"><img src="{{ site.baseurl }}/assets/2018/03/281245-bdmzafobvu_thumb740.jpg" alt="" width="800" height="600" /></a><figcaption> Heroes of Might and Magic III</figcaption></p>
 <p>And, surely enough, found <a href="https://www.spriters-resource.com/pc_computer/heroes3/sheet/43587/">the section for the world tiles</a>! (the bg folder in the zip file). Of course, these are commercial assets so I can only use them for testing things out, but they are <em>perfect</em> for that, as I wanted to go for that art style anyway.</p>
 <p>So, each terrain type has a bunch of 32x32 images that represent the terrain in its entirety, or transition tiles. I was too lazy to search online if there's any rhyme or reason to the naming of those files, so I did the natural thing: run some batched image processing using ImageMagick to identify the tileable images.</p>
 <p><strong>Step 1: Find out the seamless tiles in all directions</strong></p>
@@ -62,10 +62,10 @@ permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 <p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/biome_detail_textures2.png" alt="" width="512" height="512" /></p>
 <p>Well, in reality I'm using a source image of 32x8192 which gets interpreted as a texture array of 256 slices, so that I don't have to write manual code for correct mipmapping in the texture atlas. From a quick performance test, there didn't seem to be much difference.</p>
 <p>So that's all for how we create the detail texture atlas! Now onto applying it. There's not much to write about how to apply it, as I'm just sampling the texture instead of using  a constant color. So, here's a before/after comparison:</p>
-<p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/original.png" alt="" width="1023" height="1025" /></p>
-<p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/nodetail.png" alt="" width="1023" height="1025" /></p>
-<p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/detail.png" alt="" width="1023" height="1025" /></p>
-<p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/detail_coast.png" alt="" width="1023" height="1025" /></p>
+<p><a href="{{ site.baseurl }}/assets/2018/03/original.png"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/original_thumb740.png" alt="" width="1023" height="1025" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/03/nodetail.png"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/nodetail_thumb740.png" alt="" width="1023" height="1025" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/03/detail.png"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/detail_thumb740.png" alt="" width="1023" height="1025" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/03/detail_coast.png"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/detail_coast_thumb740.png" alt="" width="1023" height="1025" /></a></p>
 <p>For the observant readers: there's some slight artifact at the tile borders in the above images (and the video below) - this was some incorrect fract() operator on the UV coordinates, this has now been fixed. Here's the associated video in all its animated glory:</p>
 <div class="video-container">
 	<iframe src="https://www.youtube.com/embed/iGB0-cGFz-w" allowfullscreen="" frameborder="0">

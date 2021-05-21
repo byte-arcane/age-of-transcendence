@@ -19,7 +19,7 @@ meta:
 author:
 permalink: "/2017/11/03/pathfinding-and-visualization/"
 ---
-<p><img class="alignnone size-full wp-image-1628 aligncenter" src="{{ site.baseurl }}/assets/2017/11/test_astar-2017-11-03-00-32-05-61.png" alt="" width="1280" height="672" /></p>
+<p><a href="{{ site.baseurl }}/assets/2017/11/test_astar-2017-11-03-00-32-05-61.png"><img class="alignnone size-full wp-image-1628 aligncenter" src="{{ site.baseurl }}/assets/2017/11/test_astar-2017-11-03-00-32-05-61_thumb740.png" alt="" width="1280" height="672" /></a></p>
 <p>&nbsp;</p>
 <p>The core libraries are now done (or so I thought), so I'm slowly refactoring the game libraries, one component at a time. But because nothing escapes my refactoring extravaganza, I discovered another victim in the core libraries, ready to be refactored mercilessly: the grid/graph pathfinding. So, my original idea is to make the pathfinders objects that keep some state and run one iteration at a time, as I envisioned that I might interrupt an A* calculation halfway through. Well, thinking about it, that's nonsense, so ... refactor away.</p>
 <p>Now the pathfinding routine is just a function with 3 arguments:</p>
