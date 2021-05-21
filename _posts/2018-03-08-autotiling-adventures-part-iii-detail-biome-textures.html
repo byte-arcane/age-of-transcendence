@@ -22,7 +22,7 @@ author:
 permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 ---
 <p>Previously I generated <a href="{{ site.baseurl }}/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biomes-and-rivers/">procedural masks for biome and rivers,</a> but using constant color for each biome (river too). So, I ended up with nice outlines, but still the result was looking flat. So, I thought I'd add some procedural variation to the color using perlin noise. Needless to say, the result was underwhelming. So, after quite a bit of hunting, I rediscovered a website that I had stumbled upon years ago:  <a href="https://www.spriters-resource.com/">The Spriters Resource</a>! What got me really excited back then (even though I eventually forgot) is that I found there tile art for, among other games, <a href="https://en.wikipedia.org/wiki/Heroes_of_Might_and_Magic_III">Heroes of Might and Magic 3</a>!</p>
-<p>[caption id="" align="aligncenter" width="800"]<img src="{{ site.baseurl }}/assets/2018/03/281245-bdmzafobvu.jpg" alt="" width="800" height="600" /> Heroes of Might and Magic III[/caption]</p>
+<p><figure><img src="{{ site.baseurl }}/assets/2018/03/281245-bdmzafobvu.jpg" alt="" width="800" height="600" /><figcaption> Heroes of Might and Magic III</figcaption></p>
 <p>And, surely enough, found <a href="https://www.spriters-resource.com/pc_computer/heroes3/sheet/43587/">the section for the world tiles</a>! (the bg folder in the zip file). Of course, these are commercial assets so I can only use them for testing things out, but they are <em>perfect</em> for that, as I wanted to go for that art style anyway.</p>
 <p>So, each terrain type has a bunch of 32x32 images that represent the terrain in its entirety, or transition tiles. I was too lazy to search online if there's any rhyme or reason to the naming of those files, so I did the natural thing: run some batched image processing using ImageMagick to identify the tileable images.</p>
 <p><strong>Step 1: Find out the seamless tiles in all directions</strong></p>
@@ -47,7 +47,11 @@ permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 </ul>
 <p>[caption id="attachment_1873" align="aligncenter" width="384"]<img class="wp-image-1873 size-full" src="{{ site.baseurl }}/assets/2018/03/tsub.png" alt="" width="384" height="384" /> All tiles match well with each other![/caption]</p>
 <p>&nbsp;</p>
-<p>[caption id="attachment_1874" align="aligncenter" width="384"]<img class="wp-image-1874 size-full" src="{{ site.baseurl }}/assets/2018/03/tgrb.png" alt="" width="384" height="384" /> There are some tile IDs that are darker compared to their neighbours. Reading the labels, I can quickly identify them: 17,22,23,24,25[/caption]</p>
+<p>
+<figure>
+<img class="wp-image-1874 size-full" src="{{ site.baseurl }}/assets/2018/03/tgrb.png" alt="" width="384" height="384" /> 
+<figcaption>There are some tile IDs that are darker compared to their neighbours. Reading the labels, I can quickly identify them: 17,22,23,24,25</figcaption>
+</figure></p>
 <p><strong>Step 4: Assemble the texture array</strong></p>
 <p>Now I select which image set will be used for which biome, e.g. the water images are used for the water biomes (4 of them), by creating variants that are slightly processed in terms of histogram/levels. For each biome, I select a random subset of 16 images. As I have 16 biomes, I end up with 256 image.</p>
 <p>So, after a bit of work, the resulting texture looks like this:</p>

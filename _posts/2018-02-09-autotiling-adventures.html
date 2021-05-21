@@ -85,9 +85,9 @@ https://gamedev.stackexchange.com/questions/125284/what-is-the-term-for-a-3x3-ti
 https://forum.unity.com/threads/2d-tile-mapping-in-unity-demystified.441444/</p>
 <p>Quite a few.</p>
 <p>There are two main ways to consider art when using autotiles: using masks, or using premade textures. A good example is shown <a href="http://allacrost.sourceforge.net/wiki/index.php/Video_Engine_Visual_Effects#Transition_Tiles">here</a>:</p>
-<p style="text-align: center;"><strong>Autotiling example</strong></p>
-<p><img class="aligncenter" src="{{ site.baseurl }}/assets/2018/02/Autotileex.gif" alt="http://allacrost.sourceforge.net/wiki/images/1/19/Autotileex.gif" /></p>
-<p style="text-align: center;"><strong>Blend masks example</strong></p>
+<p><strong>Autotiling example</strong></p>
+<p><img src="{{ site.baseurl }}/assets/2018/02/Autotileex.gif" alt="http://allacrost.sourceforge.net/wiki/images/1/19/Autotileex.gif" /></p>
+<p><strong>Blend masks example</strong></p>
 <p><a href="https://allacrost.sourceforge.net/wiki/images/3/34/Blendmaskex.gif"><img class="aligncenter" src="{{ site.baseurl }}/assets/2018/02/Blendmaskex.gif" alt="http://allacrost.sourceforge.net/wiki/images/3/34/Blendmaskex.gif" /></a></p>
 <p>The premade tiles have the obvious benefit that they can be very nicely done, but of course they are tied to the content they represent.  The blend masks do not look as good, but are easier to develop, and they are more flexible in terms of what textures we want to seamlessly mix. I decided to use masks as I want transitions between <strong>any</strong> biome: for 16 biome types, that's 120 unique combinations. It's not an option to ask an artist to develop 120 different autotiles, that needs quite a bit of money and time. And also, that would have no variation; each autotile would be replicated all over the place, so it would be easy to distinguish patterns.</p>
 <p>&nbsp;</p>
@@ -113,18 +113,19 @@ https://forum.unity.com/threads/2d-tile-mapping-in-unity-demystified.441444/</p>
 <p><img class="aligncenter size-full wp-image-1828" src="{{ site.baseurl }}/assets/2018/02/autotile_mask.png" alt="" width="258" height="1026" /></p>
 <p>This has a nice continuous shape, if for example we want to ask an artist to draw some of those. Note that with this arrangement, the transformation will differ, as now the masks are already transformed compared to what I showed above. What's really important is that the amount of white vs black at the borders that contain both <strong>needs to always match, </strong>so that tiles are seamlessly combined. In my case above, I'm splitting them at 50%, but that's of course configurable. What I'm not going to cover, as I've given it some thought and gets very complicated, is to support variable black/white border percentages, ensuring that they match There are many more complications involved and I'm not sure if it's worth it in the end.</p>
 <p>So, now we have 4 unique combinations. These can be nicely stored in an RGBA texture (one mask per channel) by converting the above 1x4 tile image. In the shader, given a mask value in [0,15], we effectively do the following:</p>
-<pre class="EnlighterJSRAW" data-enlighter-language="cpp">mask = ... // obtain mask value from 4 underlying biome map tiles. Value in [0,15]
+{% highlight cpp %}
+mask = ... // obtain mask value from 4 underlying biome map tiles. Value in [0,15]
 (mask_unique, transform) = get_transform(mask); // use a lookup table to get the unique mask index [0,3] and the transform needed
 uv2 = apply_transform(uv, transform); // transform the texture coordinates
 mask_rgba = sample_mask_texture(uv2); // sample the mask values
 mask_value = -1;
 switch(mask_unique)
 {
-
     case 4:  mask_value = 0; break; // whole mask is empty
-    case 5:  mask_value = 1; break; // whole mask is full
+    case 5:  mask_value = 1; break; // whole mask is full
     default: mask_value = mask_rgba[mask_unique]; // get the component that we need
-}</pre>
+}
+{% endhighlight %}
 <p>Most of the above can be done in the vertex shader, whereas the last two steps (sampling the texture and getting the component) need to be done in the pixel shader. So, it's quite cheap.</p>
 <h2>Rendering tiles</h2>
 <p>So, we have a method to render tiles given a very small number of masks. How do we render the tiles? Here's the naive approach, for a 512x512 biome map:</p>
@@ -149,7 +150,7 @@ switch(mask_unique)
 </ul>
 <p>By applying these two, for my test map I reduced the number of tiles to 0.4 million, which is 10x better. Of course, that's still a lot, but it doesn't take into account any spatial hierarchy and other optimisations that could be done.</p>
 <p>Here are some examples using the above un-nice mask. Zoomed-out:</p>
-<p><img class="aligncenter size-full wp-image-1836" src="{{ site.baseurl }}/assets/2018/02/noautotile_zoomout.png" alt="" width="508" height="509" /> <img class="aligncenter size-full wp-image-1837" src="{{ site.baseurl }}/assets/2018/02/autotile_zoomout.png" alt="" width="508" height="509" /></p>
+<p><img src="{{ site.baseurl }}/assets/2018/02/noautotile_zoomout.png" alt="" width="508" height="509" /> <img class="aligncenter size-full wp-image-1837" src="{{ site.baseurl }}/assets/2018/02/autotile_zoomout.png" alt="" width="508" height="509" /></p>
 <p>Zoomed-in</p>
 <p><img class="aligncenter size-full wp-image-1838" src="{{ site.baseurl }}/assets/2018/02/noautotile_zoomin.png" alt="" width="508" height="509" /></p>
 <p><img class="aligncenter size-full wp-image-1835" src="{{ site.baseurl }}/assets/2018/02/autotile_zoomin.png" alt="" width="508" height="509" /></p>

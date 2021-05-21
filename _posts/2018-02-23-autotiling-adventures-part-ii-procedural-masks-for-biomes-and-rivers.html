@@ -69,7 +69,7 @@ permalink: "/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biome
 <p>We follow the same process as with the biome masks: we remove extraneous white/black regions, calculate distance fields and downsample to 32x32.</p>
 <p>Here's also a video that demonstrates all the mask shapes, procedurally generated, parameterized by time:</p>
 <div class="video-container">
-	<iframe src="https://www.youtube.com/embed/ztQj7uArSc4&amp;feature=youtu.be" allowfullscreen="" frameborder="0">
+	<iframe src="https://www.youtube.com/embed/ztQj7uArSc4" allowfullscreen="" frameborder="0">
     </iframe>
 </div>
 <p>As you can see, for the river masks there are typically big black holes in the middle, but they are filled out by the process I described earlier.</p>
@@ -80,7 +80,7 @@ permalink: "/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biome
 <p>&nbsp;</p>
 <p>Here's a video that shows all mask on the map, compared to the single color per pixel:</p>
 <div class="video-container">
-	<iframe src="https://www.youtube.com/embed/UBaR3SR2poY&amp;feature=youtu.be" allowfullscreen="" frameborder="0">
+	<iframe src="https://www.youtube.com/embed/UBaR3SR2poY" allowfullscreen="" frameborder="0">
     </iframe>
 </div>
 <p>As a note, the original single-color-per-pixel has some additional color variation based on the vegetation density, that the new masked version does not have have yet. Also, I think there's an indexing bug for the variations, as I should have 64 different variations per shape but we can see the occasional repetition.</p>
