@@ -25,11 +25,6 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '54'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2018/01/08/front-end-camera/"
 ---
 <p>We currently have overworld maps that can be visualized with a color per pixel, depending on the pixel's biome data.<br />
@@ -45,7 +40,10 @@ In the actual game, each of these pixels will be a <em>tile</em>, on which we'll
 <p><em>(Note: Any sprite overlaps are due to my laziness; the positions for the billboards are generated randomly and therefore sometimes overlap)</em></p>
 <p>I think it's safe to assume that it works well, but they don't integrate perfectly. I'm not an artist, so I need to get some informed opinions on how to improve the visual result by just processing the sprites and data that I have (e.g. using specific, shared color palette for both overworld and sprites, process sprite boundary, add some fake environment lighting, etc). Also, DCSS sprites occasionally have integrated shadows, which funnily enough works for many of the views, but it's baked in the sprite, so not really controllable.</p>
 <p>Here is a video of a perspective/ortho cameras using billboard version, to showcase the 3D look.</p>
-<p>https://youtu.be/c6Die_E5GWs</p>
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/c6Die_E5GWs" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>
 <p>While the 3D effect works, the visuals can be massively improved. For example:</p>
 <ul>
 <li style="list-style-type: none;"></li>

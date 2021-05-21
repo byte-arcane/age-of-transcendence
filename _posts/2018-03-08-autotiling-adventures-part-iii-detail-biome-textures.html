@@ -19,14 +19,9 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '49'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 ---
-<p>Previously I generated <a href="https://age-of-transcendence.com/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biomes-and-rivers/">procedural masks for biome and rivers,</a> but using constant color for each biome (river too). So, I ended up with nice outlines, but still the result was looking flat. So, I thought I'd add some procedural variation to the color using perlin noise. Needless to say, the result was underwhelming. So, after quite a bit of hunting, I rediscovered a website that I had stumbled upon years ago:  <a href="https://www.spriters-resource.com/">The Spriters Resource</a>! What got me really excited back then (even though I eventually forgot) is that I found there tile art for, among other games, <a href="https://en.wikipedia.org/wiki/Heroes_of_Might_and_Magic_III">Heroes of Might and Magic 3</a>!</p>
+<p>Previously I generated <a href="{{ site.baseurl }}/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biomes-and-rivers/">procedural masks for biome and rivers,</a> but using constant color for each biome (river too). So, I ended up with nice outlines, but still the result was looking flat. So, I thought I'd add some procedural variation to the color using perlin noise. Needless to say, the result was underwhelming. So, after quite a bit of hunting, I rediscovered a website that I had stumbled upon years ago:  <a href="https://www.spriters-resource.com/">The Spriters Resource</a>! What got me really excited back then (even though I eventually forgot) is that I found there tile art for, among other games, <a href="https://en.wikipedia.org/wiki/Heroes_of_Might_and_Magic_III">Heroes of Might and Magic 3</a>!</p>
 <p>[caption id="" align="aligncenter" width="800"]<img src="{{ site.baseurl }}/assets/2018/03/281245-bdmzafobvu.jpg" alt="" width="800" height="600" /> Heroes of Might and Magic III[/caption]</p>
 <p>And, surely enough, found <a href="https://www.spriters-resource.com/pc_computer/heroes3/sheet/43587/">the section for the world tiles</a>! (the bg folder in the zip file). Of course, these are commercial assets so I can only use them for testing things out, but they are <em>perfect</em> for that, as I wanted to go for that art style anyway.</p>
 <p>So, each terrain type has a bunch of 32x32 images that represent the terrain in its entirety, or transition tiles. I was too lazy to search online if there's any rhyme or reason to the naming of those files, so I did the natural thing: run some batched image processing using ImageMagick to identify the tileable images.</p>
@@ -64,7 +59,10 @@ permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 <p><img class="aligncenter size-full wp-image-1876" src="{{ site.baseurl }}/assets/2018/03/detail.png" alt="" width="1023" height="1025" /></p>
 <p><img class="aligncenter size-full wp-image-1877" src="{{ site.baseurl }}/assets/2018/03/detail_coast.png" alt="" width="1023" height="1025" /></p>
 <p>For the observant readers: there's some slight artifact at the tile borders in the above images (and the video below) - this was some incorrect fract() operator on the UV coordinates, this has now been fixed. Here's the associated video in all its animated glory:</p>
-<p>https://www.youtube.com/watch?v=iGB0-cGFz-w</p>
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/iGB0-cGFz-w" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>
 <p>The video shows before-and-after the detail textures, the coastal animation, scrolling and zooming in/out on the map.  For zoom in/out, I'm using texture filtering like this:</p>
 <ul>
 <li>min filter: linear mipmap linear (to prevent noise at zoomed out level)</li>

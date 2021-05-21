@@ -17,17 +17,13 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '57'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2017/12/02/more-messaging-and-shader-parameterisation/"
 ---
 <p>Last time I gave a brief description about how messaging (and my dirt simple implementation) can help with decoupling. But of course that was just scratching the surface. So, in this post, a bit more information on how the whole system is put together</p>
 <h3>Messaging changes</h3>
 <p>The messages now can also store an explicit message handler. In terms of the example I used last time, the new message would be as follows:</p>
-<pre class="EnlighterJSRAW" data-enlighter-language="cpp">class cEntity;
+{% highlight cpp %}
+class cEntity;
 
 struct cEntityCreated : public cMessage
 {
@@ -37,7 +33,8 @@ struct cEntityCreated : public cMessage
     const cEntity&amp; mEntity;
 
     static const int msType = 2;
-};</pre>
+};
+{% endhighlight %}
 <p>So, a slight change allows cases where we'd like to target a message to a particular handler. This would be useful in the cases where we want to directly affect something from another part in the code that we don't want coupling with, but we don't want to introduce abstraction layers. Example:</p>
 <p>My test rendering app needs to modify a renderable directly, by setting a bunch of tiles. One option is to introduce a new message, TilesChangedInRenderable( tiles, renderable), but then we have a TilesChanged(tiles) message AND a TilesChangedInRenderable(tiles, Renderable). To avoid doing the same thing with classes other than Renderables, and since the Renderable is a MessageHandler anyway, I decided to make the above adjustment where we can always optionally provide an explicit handler; if one is provided, the message is only handled by message propagators (e.g. a System) and the handler in question, otherwise it is handled by everybody who is registered to listen to those types of messages.</p>
 <h3>Shader parameters</h3>
@@ -74,7 +71,8 @@ struct cEntityCreated : public cMessage
 <li>There is a new renderer instance of the type GridSparseSelectionRenderer -- it's used for rendering lines.</li>
 <li>There are a few renderables: for the node points, for the start point, for the goal points (of course horribly inefficient, I might as well draw all points at once and assign per-instance colors, but that's not the point here), for the edges and for the edges that are part of the output path.</li>
 </ul>
-<pre class="EnlighterJSRAW" data-enlighter-language="json">{ "gs_nodes" : { 
+{% highlight json %}
+{ "gs_nodes" : { 
     "@factory" : "RenderableTileGridWidgetSelection",
     "Renderer" : "GridSparse",
     "TextureBuffers" : [
@@ -129,4 +127,5 @@ struct cEntityCreated : public cMessage
     "ShaderParams" : {
         "g_Color" : {"type" : "color", "value" : [0,255,0,255]}
     }
-}},</pre>
+}}
+{% endhighlight %}

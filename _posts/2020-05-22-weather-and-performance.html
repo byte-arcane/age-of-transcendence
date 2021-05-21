@@ -19,11 +19,6 @@ meta:
   _edit_last: '1'
   rank_math_analytic_object_id: '16'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2020/05/22/weather-and-performance/"
 ---
 <p><!-- wp:paragraph --></p>
@@ -37,8 +32,9 @@ permalink: "/2020/05/22/weather-and-performance/"
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:core-embed/youtube {"url":"https://youtu.be/9cY3Di6WHOE","type":"video","providerNameSlug":"youtube","className":"wp-embed-aspect-16-9 wp-has-aspect-ratio"} --></p>
 <figure class="wp-block-embed-youtube wp-block-embed is-type-video is-provider-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio">
-<div class="wp-block-embed__wrapper">
-https://youtu.be/9cY3Di6WHOE
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/9cY3Di6WHOE" allowfullscreen="" frameborder="0">
+    </iframe>
 </div>
 </figure>
 <p><!-- /wp:core-embed/youtube --></p>
@@ -67,13 +63,13 @@ https://youtu.be/9cY3Di6WHOE
 <p><strong>Pathfinding back to C++: Success!</strong></p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:paragraph --></p>
-<p>The first though was obviously, "why of course, move things to the C++ plugin". Since my old code was C++ and was ported to C#, this was not exactly a daunting task, as I copied C++ code from the old project to the plugin. First major offender was the pathfinding. <a href="https://age-of-transcendence.com/2018/09/08/city-based-pathfinding-in-the-overworld/">Reference blog post</a>. Now I'm generating 752 routes that connect 256 cities int the map, and also precalculate some quantities that greatly accelerate pathfinding searches, that involve 8 Dijkstra map calculations on the entire 512x512 map. Here is the first kicker. <strong>From 2 minutes, the process now takes 4 seconds</strong>. Needless to say, that caused extreme joy, and set the blinders on, focused to reduce those 4 minutes for the world generation back to several seconds. Next candidate? Territory control!</p>
+<p>The first though was obviously, "why of course, move things to the C++ plugin". Since my old code was C++ and was ported to C#, this was not exactly a daunting task, as I copied C++ code from the old project to the plugin. First major offender was the pathfinding. <a href="{{ site.baseurl }}/2018/09/08/city-based-pathfinding-in-the-overworld/">Reference blog post</a>. Now I'm generating 752 routes that connect 256 cities int the map, and also precalculate some quantities that greatly accelerate pathfinding searches, that involve 8 Dijkstra map calculations on the entire 512x512 map. Here is the first kicker. <strong>From 2 minutes, the process now takes 4 seconds</strong>. Needless to say, that caused extreme joy, and set the blinders on, focused to reduce those 4 minutes for the world generation back to several seconds. Next candidate? Territory control!</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:paragraph --></p>
 <p><strong>Territory control back to C++: Success? Eventually!</strong></p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:paragraph --></p>
-<p>Drunk with optimisation success, I wanted to get the same boost for the territory control. <a href="https://age-of-transcendence.com/2018/07/21/overworld-territories/">Reference blog post about territories</a>. In C#, running the process once for each city (256 of them) takes a total of 6-7 seconds. So I ported the code, and the time went down to 3.5 seconds. Hmmm, not great. But why? Apparently, I had not understood marshalling (moving data between C# and C++) correctly. Every time I passed array, I thought I was passing pointers, but C# was copying memory under the hood. <strong>So for each of those 256 calls, I was copying back-and-forth a few 512x512 maps, so around 5 megabytes worth of data transfers</strong>. Needless to say, that's bad, so I tried to find ways to just pass pointers. And there is a Unity-way, using Native arrays. I switched to native arrays (not too easy but ok), and <strong>the time went drom from 6-7 seconds in C#, to 285ms!</strong>. But all is not rosy, as native arrays are not perfect (see below section) and also it's a bit fussier to call the DLL functions: create an unsafe block, in there get the void* pointer from native array and cast to IntPtr, and then send the IntPtr to the plugin.</p>
+<p>Drunk with optimisation success, I wanted to get the same boost for the territory control. <a href="{{ site.baseurl }}/2018/07/21/overworld-territories/">Reference blog post about territories</a>. In C#, running the process once for each city (256 of them) takes a total of 6-7 seconds. So I ported the code, and the time went down to 3.5 seconds. Hmmm, not great. But why? Apparently, I had not understood marshalling (moving data between C# and C++) correctly. Every time I passed array, I thought I was passing pointers, but C# was copying memory under the hood. <strong>So for each of those 256 calls, I was copying back-and-forth a few 512x512 maps, so around 5 megabytes worth of data transfers</strong>. Needless to say, that's bad, so I tried to find ways to just pass pointers. And there is a Unity-way, using Native arrays. I switched to native arrays (not too easy but ok), and <strong>the time went drom from 6-7 seconds in C#, to 285ms!</strong>. But all is not rosy, as native arrays are not perfect (see below section) and also it's a bit fussier to call the DLL functions: create an unsafe block, in there get the void* pointer from native array and cast to IntPtr, and then send the IntPtr to the plugin.</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:paragraph --></p>
 <p><strong>Interlude: NativeArray vs managed arrays</strong></p>

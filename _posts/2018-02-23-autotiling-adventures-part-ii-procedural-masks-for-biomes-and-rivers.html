@@ -17,18 +17,13 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '50'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biomes-and-rivers/"
 ---
 <p><img class="aligncenter size-full wp-image-1854" src="{{ site.baseurl }}/assets/2018/02/ovwmasked.png" alt="" width="1152" height="576" /></p>
 <h2></h2>
 <h2>Biome masks</h2>
 <p>&nbsp;</p>
-<p><a href="https://age-of-transcendence.com/2018/02/09/autotiling-adventures/">In the last article</a>, I described a way to autotile multiple biomes using a minimal set of mask shapes. I used a custom map for testing. This time, I use some shaders to generate the a nice big set of masks. In particular, I can generate for example 32 variations of each of the 4 shapes at 256x256 resolution. As we have 1 shape per RGBA texture component (our masks are grayscale), we need 32 RGBA textures, or a single 32-slice array. Stiching them up, the procedural masks look like this: (rows: variations, columns: shapes)</p>
+<p><a href="{{ site.baseurl }}/2018/02/09/autotiling-adventures/">In the last article</a>, I described a way to autotile multiple biomes using a minimal set of mask shapes. I used a custom map for testing. This time, I use some shaders to generate the a nice big set of masks. In particular, I can generate for example 32 variations of each of the 4 shapes at 256x256 resolution. As we have 1 shape per RGBA texture component (our masks are grayscale), we need 32 RGBA textures, or a single 32-slice array. Stiching them up, the procedural masks look like this: (rows: variations, columns: shapes)</p>
 <p><img class="aligncenter size-full wp-image-1858" src="{{ site.baseurl }}/assets/2018/02/all_rmasks2.png" alt="" width="1024" height="1793" /></p>
 <p>&nbsp;</p>
 <p>These masks are generated using perlin noise, and then they are post-processed to remove floating islands. Here's how:</p>
@@ -73,7 +68,10 @@ permalink: "/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biome
 <h2></h2>
 <p>We follow the same process as with the biome masks: we remove extraneous white/black regions, calculate distance fields and downsample to 32x32.</p>
 <p>Here's also a video that demonstrates all the mask shapes, procedurally generated, parameterized by time:</p>
-<p>https://www.youtube.com/watch?v=ztQj7uArSc4&amp;feature=youtu.be</p>
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/ztQj7uArSc4&amp;feature=youtu.be" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>
 <p>As you can see, for the river masks there are typically big black holes in the middle, but they are filled out by the process I described earlier.</p>
 <h3>River and road rendering</h3>
 <p>The process is a bit different to the biome mask rendering. Now we have a sparse set of tiles that contain river/road data. The tile data required are 3 bits for the mask index, 3 bits for the transform, and 10 bits for each of the x,y coordinates of the tile (I'm using 512x512 maps for the overworld and I doubt I'd use 2048 or larger). The pseudocode for rendering is similar and a bit simpler compared to the biome mask rendering: for a tile, we unpack the autotile data, we calculate the output position based on the x,y values, and we sample the mask using transformed coordinates.</p>
@@ -81,6 +79,9 @@ permalink: "/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biome
 <h2>Putting it all together</h2>
 <p>&nbsp;</p>
 <p>Here's a video that shows all mask on the map, compared to the single color per pixel:</p>
-<p>https://www.youtube.com/watch?v=UBaR3SR2poY&amp;feature=youtu.be</p>
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/UBaR3SR2poY&amp;feature=youtu.be" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>
 <p>As a note, the original single-color-per-pixel has some additional color variation based on the vegetation density, that the new masked version does not have have yet. Also, I think there's an indexing bug for the variations, as I should have 64 different variations per shape but we can see the occasional repetition.</p>
 <p>TODOs for next are coastal water animation utilising the distance field, color variation of the biomes (they still look quite flat) and prop locations per tile for placement of trees, etc.</p>

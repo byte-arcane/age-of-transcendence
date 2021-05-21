@@ -22,11 +22,6 @@ meta:
   _wpas_done_all: '1'
   rank_math_analytic_object_id: '9'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2020/12/15/underwater-effect-decals-and-lz4-compression/"
 ---
 <p><!-- wp:paragraph --></p>
@@ -34,8 +29,9 @@ permalink: "/2020/12/15/underwater-effect-decals-and-lz4-compression/"
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:embed {"url":"https://youtu.be/4fF-oa-ei2o","type":"video","providerNameSlug":"youtube","responsive":true,"className":"wp-embed-aspect-16-9 wp-has-aspect-ratio"} --></p>
 <figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio">
-<div class="wp-block-embed__wrapper">
-https://youtu.be/4fF-oa-ei2o
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/4fF-oa-ei2o" allowfullscreen="" frameborder="0">
+    </iframe>
 </div>
 </figure>
 <p><!-- /wp:embed --></p>
@@ -43,7 +39,7 @@ https://youtu.be/4fF-oa-ei2o
 <h4>Underwater effect</h4>
 <p><!-- /wp:heading --></p>
 <p><!-- wp:paragraph --></p>
-<p>Recently I refactored sprite rendering to use variants with <a href="https://age-of-transcendence.com/2020/12/03/autotiles-instancing-and-object-clusters/" class="rank-math-link">multiple configuration variables</a>, one of them being the type of the pass being regular, shadow or occluded. The occluded pass is like the regular pass, but we draw in areas that fail the Z test, and make this pass semi-transparent. So far so good, and what does this have to do with the underwater effect? </p>
+<p>Recently I refactored sprite rendering to use variants with <a href="{{ site.baseurl }}/2020/12/03/autotiles-instancing-and-object-clusters/" class="rank-math-link">multiple configuration variables</a>, one of them being the type of the pass being regular, shadow or occluded. The occluded pass is like the regular pass, but we draw in areas that fail the Z test, and make this pass semi-transparent. So far so good, and what does this have to do with the underwater effect? </p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image --></p>
 <figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/taWUYq2.png" alt="" /><br />
@@ -51,7 +47,7 @@ https://youtu.be/4fF-oa-ei2o
 </figure>
 <p><!-- /wp:image --></p>
 <p><!-- wp:paragraph --></p>
-<p>Well, previously my sprites have been holier-than-thou, as they all seem to be walking on top of any body of water, like the sea or some lakes/rivers in the level maps. Clearly that does not look very nice, and does not give the impression that we're inside that liquid. So, after a few experiments, I thought I'd reuse (the programmer's wet dream) the occluded pass to do that. How? A bit of background info first: In my rendering pipeline, <a href="https://age-of-transcendence.com/2020/06/05/overworld-graphics-redux-vegetation/" class="rank-math-link">sprites do use depth/Z values</a>, so I can have order in rendering, characters appearing behind trees, etc.</p>
+<p>Well, previously my sprites have been holier-than-thou, as they all seem to be walking on top of any body of water, like the sea or some lakes/rivers in the level maps. Clearly that does not look very nice, and does not give the impression that we're inside that liquid. So, after a few experiments, I thought I'd reuse (the programmer's wet dream) the occluded pass to do that. How? A bit of background info first: In my rendering pipeline, <a href="{{ site.baseurl }}/2020/06/05/overworld-graphics-redux-vegetation/" class="rank-math-link">sprites do use depth/Z values</a>, so I can have order in rendering, characters appearing behind trees, etc.</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:paragraph --></p>
 <p>First we need to detect when we're on tiles with liquid. On those tiles, push the Z value further back: more for deep liquid, less for shallow liquid. Push the sprites so that part of the sprites is underground. <strong>Important:</strong> the position on screen is identical, I'm just pushing the Z value so that part of the sprite will fail the Z test</p>

@@ -73,6 +73,9 @@ permalink: "/2017/02/17/application-states/"
 <li><strong>TargetSingleTile: </strong>This state does not have its own gui - it uses whatever gui was there before. It adds a selection of highlighted tiles, centered at the character. When the user clicks on a tile that is within the selection, the state completes successfully and transfers the selected tile to the parent. At the tile, a skeleton appears.</li>
 <li><strong>TargetMultiTile: </strong>This state doesn't have its own gui either. It is a state machine, and calls TargetSingleTile successively. When the state machine is finished, the locations of all selected tiles are sent to the parent state (Game). At those tiles, wraiths appear</li>
 </ul>
-<p>https://youtu.be/zWW-uNXREdQ</p>
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/zWW-uNXREdQ" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>
 <p>The system is still a bit rough around the edges, and it looks like it can be converted to a generic state machine (which I could reuse perhaps for some basic AI), but it's ok for now.</p>
 <p>&nbsp;</p>

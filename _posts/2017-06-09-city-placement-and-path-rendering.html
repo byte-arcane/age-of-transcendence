@@ -35,7 +35,13 @@ permalink: "/2017/06/09/city-placement-and-path-rendering/"
 <p>So, what needs to be done is that every time a path is calculated, the movecost map is updated to reduce movement cost at areas with a path. This causes coalescing of a big chunk of almost-overlapping paths. Here's an example result when setting the movecost to 75% on tiles with paths, while calculating more paths, using the same viewpoint as above:</p>
 <p><img class="alignnone size-full wp-image-1560" src="{{ site.baseurl }}/assets/2017/06/overworld_render_test-2017-06-09-15-14-29-64.png" alt="overworld_render_test 2017-06-09 15-14-29-64" width="1024" height="1024" /></p>
 <p>A much cleaner result! Here's a video of the city and path (non-coalesced) visualization:</p>
-<p>https://youtu.be/b7gVOUbiO2o</p>
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/b7gVOUbiO2o" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>
 <p>&nbsp;</p>
 <p>Another thing that's in the works is a smooth transition between smooth paths from a very zoomed out view to actual, real, tile-to-tile piecewise-linear, straight/diagonal line paths when fully zoomed-in. The reasoning behind this is that when you're zoomed in enough, you probably care about the exact, precise path. When zoomed out, you possibly want a more high-level overview, which can be more pleasing with smoother curves. Here's a video with the dynamic path smoothing in action:</p>
-<p>https://youtu.be/QdqjD6aQWvU</p>
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/QdqjD6aQWvU" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>

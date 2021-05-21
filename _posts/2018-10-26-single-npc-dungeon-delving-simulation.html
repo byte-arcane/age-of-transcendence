@@ -18,14 +18,9 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '37'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2018/10/26/single-npc-dungeon-delving-simulation/"
 ---
-<p>Previous week was <a href="https://age-of-transcendence.com/2018/10/19/adventurer-archetypes-level-up-strategies/">simulation of level progression of NPC adventurers</a>. The logical continuation is to pit such generated characters against dungeons, and run simulations for the outcome.</p>
+<p>Previous week was <a href="{{ site.baseurl }}/2018/10/19/adventurer-archetypes-level-up-strategies/">simulation of level progression of NPC adventurers</a>. The logical continuation is to pit such generated characters against dungeons, and run simulations for the outcome.</p>
 <h3>Dungeons: A Series of Challenges</h3>
 <p>The Tomb Of Horrors.</p>
 <p>The Haunted Graveyard.</p>
@@ -76,7 +71,7 @@ return status::Success</pre>
 <p>For simulation purposes, mana acts as a "mana shield"; when mana is available it can be utilized to block off damage at half effectiveness, e.g. at 100 damage, 48 mana left =&gt; 24 damage absorbed, mana goes to zero, adventurer takes 76 damage.</p>
 <p>I developed two tests to see the simulation in action, <strong>single-delve</strong> and <strong>lifetime-delve</strong></p>
 <h3>Single-delve tests</h3>
-<p>These tests take single adventurers and put them against a single dungeon. Run enough tests at all potential character levels, and we can get an idea of survivability rates at different levels. All characters are generated using the <a href="https://age-of-transcendence.com/2018/10/19/adventurer-archetypes-level-up-strategies/">level-up strategies from the previous post</a>.  Below are a few graphs that show the success/retreat/death per adventurer level by varying the general cautiousness of adventurers (CR mod), the number of challenges of the dungeon and their retreat threshold.</p>
+<p>These tests take single adventurers and put them against a single dungeon. Run enough tests at all potential character levels, and we can get an idea of survivability rates at different levels. All characters are generated using the <a href="{{ site.baseurl }}/2018/10/19/adventurer-archetypes-level-up-strategies/">level-up strategies from the previous post</a>.  Below are a few graphs that show the success/retreat/death per adventurer level by varying the general cautiousness of adventurers (CR mod), the number of challenges of the dungeon and their retreat threshold.</p>
 <p><img class="aligncenter size-full wp-image-2010" src="{{ site.baseurl }}/assets/2018/10/advlocres_crmod-3_enc9_retreat3.png" alt="" width="1830" height="981" /></p>
 <p><img class="aligncenter size-full wp-image-2011" src="{{ site.baseurl }}/assets/2018/10/advlocres_crmod0_enc9_retreat3.png" alt="" width="1830" height="981" /></p>
 <p><img class="aligncenter size-full wp-image-2012" src="{{ site.baseurl }}/assets/2018/10/advlocres_crmod3_enc9_retreat3.png" alt="" width="1830" height="981" /></p>

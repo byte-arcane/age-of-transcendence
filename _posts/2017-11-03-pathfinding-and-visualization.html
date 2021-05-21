@@ -17,11 +17,6 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '59'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2017/11/03/pathfinding-and-visualization/"
 ---
 <p><img class="alignnone size-full wp-image-1628 aligncenter" src="{{ site.baseurl }}/assets/2017/11/test_astar-2017-11-03-00-32-05-61.png" alt="" width="1280" height="672" /></p>
@@ -35,6 +30,9 @@ permalink: "/2017/11/03/pathfinding-and-visualization/"
 </ul>
 <p>To aid debugging, I've added a conditionally compiled part that <strong>records state and output at every search iteration. </strong>After this semantic separation in these structures, recording the state is now a breeze! I just keep a vector of states/outputs per iteration to see their "history" and how they evolve.</p>
 <p>So, with the nicely modularized grid pathfinder function and the newly refactored rendering system, we can implement an application that visualizes pathfinding (inspired by <a href="https://www.redblobgames.com/pathfinding/a-star/introduction.html">Amit's super awesome A* page</a>, among others). I've made an application that uses ImGui and my widgets (the tilegrid one to be precise), so that I can dynamically modify weights on the map, as well as start and goals, heuristics, 4 or 8 connectivity, etc. Additionally, several visualization options are provided as overlays: visited cells, gscore, fscore, the calculated path, start/end points, etc, all as layers: gscore, fscore and weights exist for all cells, so they are rendered using a dense tile renderer, while start, goals, visited cells are rendered using a sparse tile renderer. The tilegrid widget uses a group renderer, tha renders all the layers specified. Way too much text and way too little action, here's a video capture of the visualizer:</p>
-<p>https://youtu.be/jEWn37fcySA</p>
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/jEWn37fcySA" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>
 <p>&nbsp;</p>
 <p>Next thing to do is make sure the graph pathfinder works well, and then continue the refactoring quest, which is totally worth it.</p>

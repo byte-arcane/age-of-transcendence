@@ -18,15 +18,10 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '27'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2019/03/08/porting-to-unity-vi-rpg-elements-time/"
 ---
 <p><!-- wp:paragraph --></p>
-<p>This week I ported another bulk of data, namely RPG-system related stuff such as <a href="https://age-of-transcendence.com/2018/10/10/attributes-skills-and-masteries/">attributes, skills, skill categories, skill mastery levels</a> and <a href="https://age-of-transcendence.com/2018/10/19/adventurer-archetypes-level-up-strategies/">level-up strategies</a>.  The data all became scriptable objects (as they're constant assets), and all except the level-up strategies were enum-ified as it is quite likely that in the code I'll be referring to particular skills/attributes/etc (e.g. if  skills[dexterity] > 10, do something)</p>
+<p>This week I ported another bulk of data, namely RPG-system related stuff such as <a href="{{ site.baseurl }}/2018/10/10/attributes-skills-and-masteries/">attributes, skills, skill categories, skill mastery levels</a> and <a href="{{ site.baseurl }}/2018/10/19/adventurer-archetypes-level-up-strategies/">level-up strategies</a>.  The data all became scriptable objects (as they're constant assets), and all except the level-up strategies were enum-ified as it is quite likely that in the code I'll be referring to particular skills/attributes/etc (e.g. if  skills[dexterity] > 10, do something)</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:paragraph --></p>
 <p>I've added a much-needed global object with all the game configuration parameters (e.g. max character levels, skill points per level, etc), while in C++ it was pretty much a dictionary loaded from json to avoid recompiles, here I have it as a scriptable object with fixed fields, so access is faster, compiles fast and data are interchangeable. </p>

@@ -20,15 +20,10 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '48'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2018/04/05/autotiling-adventures-part-iv-mountains-trees-and-props/"
 ---
 <p><img class="aligncenter size-full wp-image-1897" src="{{ site.baseurl }}/assets/2018/04/overworld_adventures_4.png" alt="" width="1058" height="1082" /></p>
-<p><a href="https://age-of-transcendence.com/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/">Previously I utilized HoMM 3 assets for extracting biome detail textures. </a></p>
+<p><a href="{{ site.baseurl }}/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/">Previously I utilized HoMM 3 assets for extracting biome detail textures. </a></p>
 <p>This time, the next logical step is to add more foreground detail, such as trees, rocks, mountains and other props. I continue to utilize HoMM 3 assets, as they work pretty well and are relatively close to how I'd like things to look.  Of course I'll eventually have to make my own, as these are not mine, but that's a problem for much, much later.</p>
 <p>The pipeline from start to end for adding such foreground detail can be summarized by the following: First, identify the assets of interest. Then, pack them in a texture atlas and create an associated data file with per-prop information. Then, write the logic to place props on a map based on biome information. Finally, use the prop placement data to render the props onscreen.</p>
 <h3>Step 0: Tools</h3>
@@ -92,6 +87,9 @@ permalink: "/2018/04/05/autotiling-adventures-part-iv-mountains-trees-and-props/
 </ul>
 <p>The size of the rect that we render is conveniently constant: it's the size of the subtile. This, appropriately optimized **should** be quite efficient, but alas, the rendering shader is very slow on an intel-powered laptop with an oldish card. But that's a different story. Here's a video with the results.</p>
 <p>&nbsp;</p>
-<p>https://youtu.be/gD2GvoNg8IU</p>
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/gD2GvoNg8IU" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>
 <p>&nbsp;</p>
 <p>There's still room for improvement (there always is), but I need to proceed to framework improvements, so for now, this is the sort of map visuals that will be used. Well, with less reefs for sure :)</p>

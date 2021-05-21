@@ -31,6 +31,9 @@ permalink: "/2017/02/09/widgets-part-4/"
 <p><strong>Floaters and Modal widgets</strong></p>
 <p>Floater and modal widget functionality is now implemented: handling focus, input, spawning and destruction.</p>
 <p>Floaters do not get input or focus. In contrast,  modal widgets get full focus: while a modal widget is active, no other widget may get input focus, unless it's under the modal widget's hierarchy. For example, a modal ok/cancel dialog widget would allow input+focus for its text and buttons, but not for any other widget. Example below:</p>
-<p>https://youtu.be/UrNNrUmQbwA</p>
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/UrNNrUmQbwA" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>
 <p><strong>Resizable widgets</strong></p>
 <p>Widget dimensions get finalized at activation time. If widget dimensions are set to 0 or under, then we can calculate optimal dimensions based on what the widget really is, e.g. a text widget would calculate the optimal dimensions for the text that it will display. For padding the optimal dimensions, negative dimensions are interpreted as amount of padding to add to the optimal. Example: A textbox widget with dimensions (100, -16) will calculate the optimal box height given a width of 100, and will add 16 to that height: that will be the final height of the box on activation.</p>

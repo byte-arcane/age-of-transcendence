@@ -17,15 +17,10 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '44'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2018/08/12/city-state-relations/"
 ---
 <p><img class="aligncenter size-full wp-image-1942" src="{{ site.baseurl }}/assets/2018/08/territory_relations_232_s2_b0.4.png" alt="" width="512" height="512" /></p>
-<p>There are <a href="https://age-of-transcendence.com/2018/07/21/overworld-territories/">lots of city states</a> in the world, <a href="https://age-of-transcendence.com/2018/08/10/what-makes-a-city-state/">each with their own race composition, core values, guilds, and alignment</a> among other things. As history has taught us, nations can like or dislike each other in varying degrees. In the game, I have the following simple scale: Hatred, Dislike, Annoyed, Neutral, Accept, Like, Love.  So, how do we set up relations between city states?</p>
+<p>There are <a href="{{ site.baseurl }}/2018/07/21/overworld-territories/">lots of city states</a> in the world, <a href="{{ site.baseurl }}/2018/08/10/what-makes-a-city-state/">each with their own race composition, core values, guilds, and alignment</a> among other things. As history has taught us, nations can like or dislike each other in varying degrees. In the game, I have the following simple scale: Hatred, Dislike, Annoyed, Neutral, Accept, Like, Love.  So, how do we set up relations between city states?</p>
 <ul>
 <li><strong>Alignment.</strong> Chaotic good and lawful evil cities are (almost) never going to be friendly. Similarly aligned cities are more likely to have positive bonds with each other. So, alignment is used to bias a relation towards love/hate.</li>
 <li><strong>Common core values. </strong>City-states with similar core values are more likely to be friendly, and vice versa. Since each city has an array of weights per core value, we can just treat the arrays as N-dimensional vectors and calculate the euclidean norm. As the major core value dictates the government, we can give a bit of extra weight in the major core values of each pair of cities.</li>

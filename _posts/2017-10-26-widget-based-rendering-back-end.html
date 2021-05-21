@@ -17,15 +17,10 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '60'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2017/10/26/widget-based-rendering-back-end/"
 ---
-<p><img class="wp-image-1620 size-full aligncenter" src="{{ site.baseurl }}/assets/2017/10/render_testbedd-2017-10-26-20-04-31-95.png" alt="" width="576" height="448" /></p>
-<p style="text-align: center;"><em>(Using Dear ImGui to dynamically configure my own widget framework)</em></p>
+<p><img class="wp-image-1620 size-full aligncenter" src="{{ site.baseurl }}/assets/2017/10/render_testbedd-2017-10-26-20-04-31-95.png" alt=""/></p>
+<p><em>Using Dear ImGui to dynamically configure my own widget framework</em></p>
 <p>&nbsp;</p>
 <p>During the last few months, I've also redone how rendering should work. The crux is still the same though: rendering is <strong>widget-based</strong>. It's all OpenGL 3.3, as that's all that my decrepit laptop can handle.</p>
 <p>An application state controls a root widget. The root widget is the root of a hierarchy of containers, buttons, text boxes, list boxes and tile grids. Each widget stores "renderables": the description of how to render themselves. Typically, one for widget body, one for widget margin, and one for the text layer. So, when an application state needs to be rendered, it asks from the root widget to be rendered, and the rest happens organically.</p>

@@ -18,15 +18,10 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '42'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2018/09/08/city-based-pathfinding-in-the-overworld/"
 ---
 <p><img class="aligncenter size-full wp-image-1951" src="{{ site.baseurl }}/assets/2018/09/overworld_paths.png" alt="" width="512" height="512" /></p>
-<p>So, this follows straight from <a href="https://age-of-transcendence.com/2018/08/22/pathfinding-in-the-overworld-and-moving-away-from-hpa/">the last post</a> about the change of heart regarding HPA*.  The new system is slightly different, but generally simpler. Below, I'm going to describe how it works.</p>
+<p>So, this follows straight from <a href="{{ site.baseurl }}/2018/08/22/pathfinding-in-the-overworld-and-moving-away-from-hpa/">the last post</a> about the change of heart regarding HPA*.  The new system is slightly different, but generally simpler. Below, I'm going to describe how it works.</p>
 <h3><strong>Prerequisites</strong></h3>
 <p>The basic input of this system is a move cost map (a value per pixel) as well as the city locations. To implement this system, we need A* for graphs and grids, as well as a function to calculate a delaunay triangulation as well as a <a href="http://www.roguebasin.com/index.php?title=The_Incredible_Power_of_Dijkstra_Maps">dijkstra map</a>.</p>
 <h3>Part 1: Connectivity</h3>

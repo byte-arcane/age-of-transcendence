@@ -20,23 +20,23 @@ meta:
 author:
 permalink: "/2017/01/11/hpa/"
 ---
-<p>I finally finished with the implementation of <a href="https://www.google.co.uk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwjL-dyporvRAhWiIsAKHeGhDMUQFggoMAE&amp;url=https%3A%2F%2Fwebdocs.cs.ualberta.ca%2F~mmueller%2Fps%2Fhpastar.pdf&amp;usg=AFQjCNHSOm0e7-gXdXEXhRanP858FizCPw">HPA*.</a></p>
+<p>I finally finished with the implementation of <a href="https://webdocs.cs.ualberta.ca/~mmueller/ps/hpastar.pdf">HPA*.</a></p>
 <p>The pathfinder can be parameterized on cluster size, cluster-local path quality, coarse path quality and minimum distance between entrances to name a few. Below are a few examples. HPA* is ideal for use for many unit pathfinding queries, which I intend to have in AoT.</p>
 <p>Clusters and entrances. Background is the movecost heatmap (blue: low move cost, red: high movecost)</p>
-<p><img class="alignnone size-full wp-image-69" src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpathhpavis_true_false1.png" alt="output_overworld_navpathhpavis_true_false.png" width="512" height="512" /></p>
+<p><figure src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpathhpavis_true_false1.png" alt="output_overworld_navpathhpavis_true_false.png"/></p>
 <p>Clusters, entrances and connections</p>
-<p><img class="alignnone size-full wp-image-71" src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpathhpavis_true_true.png" alt="output_overworld_navpathhpavis_true_true.png" width="512" height="512" /></p>
+<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpathhpavis_true_true.png" alt="output_overworld_navpathhpavis_true_true.png"/></p>
 <p>Low quality path using HPA* (cost: 70.464)</p>
-<p><img class="alignnone size-full wp-image-54" src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q0_70-464.png" alt="output_overworld_navpath_q0_70.464.png" width="512" height="512" /></p>
+<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q0_70-464.png" alt="output_overworld_navpath_q0_70.464.png"/></p>
 <p>High quality path using HPA* (cost: 25.349)</p>
-<p><img class="alignnone size-full wp-image-59" src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q9_25-3496.png" alt="output_overworld_navpath_q9_25.3496.png" width="512" height="512" /></p>
+<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q9_25-3496.png" alt="output_overworld_navpath_q9_25.3496.png"/></p>
 <p>High quality path using regular A* (cost: 23.765)</p>
-<p><img class="alignnone size-full wp-image-61" src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q10_23-7657.png" alt="output_overworld_navpath_q10_23.7657.png" width="512" height="512" /></p>
+<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q10_23-7657.png" alt="output_overworld_navpath_q10_23.7657.png"/></p>
 <p>&nbsp;</p>
 <p><strong>Dynamic path</strong></p>
 <p>The pathfinder works also with dynamic weights: when parts of the weights are updated, we only recalculate the cluster-local paths in the clusters that the weights are in, ie. minimizing A* calculations.</p>
 <p>Here's a busy visualization of a dynamic path:</p>
-<p><img class="alignnone size-full wp-image-44" src="{{ site.baseurl }}/assets/2017/01/output_visibility_unitpath_unit_dwarves_vis_normal4.gif" alt="output_visibility_unitpath_unit_dwarves_vis_normal(4).gif" width="512" height="512" /></p>
+<p><img src="{{ site.baseurl }}/assets/2017/01/output_visibility_unitpath_unit_dwarves_vis_normal4.gif" alt="output_visibility_unitpath_unit_dwarves_vis_normal(4).gif" width="512" height="512" /></p>
 <p>The movecost map is visualized again as a heatmap. Green is the "unknown movecost", and is the so-far invisible area. The map is split in 8x8 clusters. All entrances and connected paths are visualized with magenta. The fat white line is the evolving path calculation. It is clear that "highways" are formed naturally when we explore the movecost map, as several paths coalesce</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>

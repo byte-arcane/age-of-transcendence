@@ -26,7 +26,10 @@ author:
 permalink: "/2017/05/12/ai-overworld-adventures-test-blackboard-dependency-chains/"
 ---
 <p>As I said last time, I modified the test to include a basic hunger clock: Heroes start with 100 rations, rations can be bought at the rate of 10/coin and they are consumed at the rate of 1/tile (diagonals cost 1.41). I added the appropriate bits in the behavior tree, added some utility-specific stuff and voila, the heroes actually survive for a while using utility AI + behavior trees!</p>
-<p>https://youtu.be/SD9AZkYGNss</p>
+<div class="video-container">
+	<iframe src="https://www.youtube.com/embed/SD9AZkYGNss" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>
 <p>... but the heroes keep starving! That is a sign of an AI bug, such as a badly programmed curve/input. But I'm not completely to blame (obviously): Using the normalized inputs for the utility AI, it is quite awkward to combine them. For example:</p>
 <ul>
 <li><strong>MyRations input: </strong>Min/Max I care about: [0, 30]</li>
@@ -61,12 +64,14 @@ permalink: "/2017/05/12/ai-overworld-adventures-test-blackboard-dependency-chain
 <li>Go to dungeon_N?</li>
 </ul>
 <p>So, the above is fairly dynamic in terms of the dungeons to compare. So it seems reasonable to abstract:</p>
-<p><code><br />
-for( auto&amp; d : dungeons)<br />
-{<br />
-blackboard.set("current_dungeon", d);<br />
-scores.push_back( choice.eval() );<br />
-}<br />
-auto iChoice = select_best_score( scores );<br />
-</code></p>
+<p>
+{% highlight cpp %}
+for( auto& d : dungeons)
+{
+	blackboard.set("current_dungeon", d);
+	scores.push_back( choice.eval() );
+}
+auto iChoice = select_best_score( scores );
+{% endhighlight %}
+</p>
 <p>In the above, the considerations will always use the "current_dungeon" property to evaluate the inputs that will pass through the response curves. This is the point where this functionality plays well with the dependency graph! Every time the current_dungeon property is changed, the whole blackboard variable subgraph that depends on that variable needs to be marked as dirty.</p>

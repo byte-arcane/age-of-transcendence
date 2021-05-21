@@ -19,14 +19,9 @@ meta:
   rank_math_internal_links_processed: '1'
   rank_math_analytic_object_id: '36'
 author:
-  login: esrever2357
-  email: admin@age-of-transcendence.com
-  display_name: esrever2357
-  first_name: ''
-  last_name: ''
 permalink: "/2018/11/02/npc-party-dungeon-delving-and-wilderness-encounter-simulation/"
 ---
-<p>As a reasonable follow-up to single <a href="https://age-of-transcendence.com/2018/10/26/single-npc-dungeon-delving-simulation/">NPC dungeon delving simulation</a>, now we test parties of adventurers.</p>
+<p>As a reasonable follow-up to single <a href="{{ site.baseurl }}/2018/10/26/single-npc-dungeon-delving-simulation/">NPC dungeon delving simulation</a>, now we test parties of adventurers.</p>
 <h3>Strength in Unity, Complementary</h3>
 <p>Parties are stronger than individual NPC, but without being overpowered. The increase in power is not linear: 5 heroes working together are not 5x more effective than a single hero, but general survival rate is greatly improved. So, here are a few similarities/differences between a single NPC and a party, with regards to mechanics in the coarse simulation layer that I'm currently developing:</p>
 <ul>
@@ -53,7 +48,7 @@ permalink: "/2018/11/02/npc-party-dungeon-delving-and-wilderness-encounter-simul
 <p>&nbsp;</p>
 <h3>Wilderness Encounters</h3>
 <p>Adventurers start their adventures typically at cities. They travel, and travel, following well-established routes as much as possible and crossing through other cities, until finally they enter full-on wilderness to get to a dungeon to clear. So, with some quick and not-too-inaccurate math we can figure out that if $latex X$ is the total distance to the dungeon and $latex Y$ is the average city-to-city distance, then the distance off roads will be $latex \text{min}(Y/2,X)$. The split to off-road and on-route is important, as threat on route is significantly smaller.</p>
-<p>The tests assume a +-20% in challenge rating compare to the character level, and they utilize <a href="https://age-of-transcendence.com/2018/10/26/single-npc-dungeon-delving-simulation/">the dungeon delving simulation code from the previous post</a>, but with 1-3 encounters only.</p>
+<p>The tests assume a +-20% in challenge rating compare to the character level, and they utilize <a href="{{ site.baseurl }}/2018/10/26/single-npc-dungeon-delving-simulation/">the dungeon delving simulation code from the previous post</a>, but with 1-3 encounters only.</p>
 <p><img class="aligncenter size-full wp-image-2037" src="{{ site.baseurl }}/assets/2018/11/wildernesssurvival_retreat4_party1-1.png" alt="" width="1830" height="981" /></p>
 <p><img class="aligncenter size-full wp-image-2039" src="{{ site.baseurl }}/assets/2018/11/wildernesssurvival_retreat4_party2.png" alt="" width="1830" height="981" /></p>
 <p><img class="aligncenter size-full wp-image-2038" src="{{ site.baseurl }}/assets/2018/11/wildernesssurvival_retreat4_party6.png" alt="" width="1830" height="981" /></p>
