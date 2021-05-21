@@ -22,10 +22,10 @@ title: Age of Transcendence
 email: byte.arcane@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Upcoming cRPG/roguelike
-#baseurl: "/test-wpimport/" # the subpath of your site, e.g. /blog
-#url: "https://byte-arcane.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-baseurl: ""
-url : ""
+baseurl: "/test-wpimport/" # the subpath of your site, e.g. /blog
+url: "https://byte-arcane.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+#baseurl: ""
+#url : ""
 twitter_username: byte-arcane
 github_username:  byte-arcane
 
