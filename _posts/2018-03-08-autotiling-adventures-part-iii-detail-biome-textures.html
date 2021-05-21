@@ -27,17 +27,21 @@ permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 <p>So, each terrain type has a bunch of 32x32 images that represent the terrain in its entirety, or transition tiles. I was too lazy to search online if there's any rhyme or reason to the naming of those files, so I did the natural thing: run some batched image processing using ImageMagick to identify the tileable images.</p>
 <p><strong>Step 1: Find out the seamless tiles in all directions</strong></p>
 <p>To find out which images tile with themselves, I ran a tiling scipt. A python call for imagemagick commandline looks like this:</p>
-<pre class="EnlighterJSRAW" data-enlighter-language="python">"magick montage {}-geometry +0+0 {}".format( (file_in + " ") * numrepeats * numrepeats, file_out)</pre>
+{% highlight python %}
+"magick montage {}-geometry +0+0 {}".format( (file_in + " ") * numrepeats * numrepeats, file_out)
+{% endhighlight %}
 <p>where file_in is the input 32x32 file, file_out is the output tiled file, and numrepeats is the number of tile repeats in each axis.</p>
 <p>Results look like this:</p>
-<p>[caption id="attachment_1870" align="aligncenter" width="256"]<img class="wp-image-1870 size-full" src="{{ site.baseurl }}/assets/2018/03/watrtl25.png" alt="" width="256" height="256" /> Good tile[/caption]</p>
-<p>[caption id="attachment_1871" align="aligncenter" width="256"]<img class="wp-image-1871 size-full" src="{{ site.baseurl }}/assets/2018/03/tgrd013.png" alt="" width="256" height="256" /> Bad tile (it's a transition tile)[/caption]</p>
+<p><figure><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/watrtl25.png" alt="" width="256" height="256" /><figcaption> Good tile</figcaption></figure></p>
+<p><figure><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/tgrd013.png" alt="" width="256" height="256" /><figcaption> Bad tile (it's a transition tile)</figcaption></figure></p>
 <p>So, great, now I have a list of tiles that are seamless with themselves. But, would they be seamless with other tiles?</p>
 <p><strong>Step 2: Add labels to tiles</strong></p>
 <p>Files are of the form "watrtl14.png", "tgrd023.png", etc. So, a prefix for the terrain type, and a number of the id. So, next step is to create images with a label in the middle of the image displaying the tile id:</p>
-<pre class="EnlighterJSRAW" data-enlighter-language="python">"magick convert {} -gravity center -annotate +0+0 {} {}".format(file, label, file_out)</pre>
+{% highlight python %}
+"magick convert {} -gravity center -annotate +0+0 {} {}".format(file, label, file_out)
+{% endhighlight %}
 <p>Result is like this:</p>
-<p><img class="aligncenter size-full wp-image-1872" src="{{ site.baseurl }}/assets/2018/03/tsab003.png" alt="" width="32" height="32" /></p>
+<p><img class="imgc" src="{{ site.baseurl }}/assets/2018/03/tsab003.png" alt="" width="32" height="32" /></p>
 <p>&nbsp;</p>
 <p><strong>Step 3: Montage of different, labeled tiles</strong></p>
 <p>So now here comes the fun part. As we have a version of all the images labeled, I run a montage again as in step 1, but with the following changes:</p>
@@ -45,23 +49,23 @@ permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 <li>Use the labeled images as the base tiles</li>
 <li>If we have 20 images for a terrain, I sample from this set randomly to populate a 12x12 tile grid. This will show what doesn't match with what else! Here's an example</li>
 </ul>
-<p>[caption id="attachment_1873" align="aligncenter" width="384"]<img class="wp-image-1873 size-full" src="{{ site.baseurl }}/assets/2018/03/tsub.png" alt="" width="384" height="384" /> All tiles match well with each other![/caption]</p>
+<p><figure><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/tsub.png" alt="" width="384" height="384" /><figcaption> All tiles match well with each other!</figcaption></figure></p>
 <p>&nbsp;</p>
 <p>
 <figure>
-<img class="wp-image-1874 size-full" src="{{ site.baseurl }}/assets/2018/03/tgrb.png" alt="" width="384" height="384" /> 
+<img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/tgrb.png" alt="" width="384" height="384" /> 
 <figcaption>There are some tile IDs that are darker compared to their neighbours. Reading the labels, I can quickly identify them: 17,22,23,24,25</figcaption>
 </figure></p>
 <p><strong>Step 4: Assemble the texture array</strong></p>
 <p>Now I select which image set will be used for which biome, e.g. the water images are used for the water biomes (4 of them), by creating variants that are slightly processed in terms of histogram/levels. For each biome, I select a random subset of 16 images. As I have 16 biomes, I end up with 256 image.</p>
 <p>So, after a bit of work, the resulting texture looks like this:</p>
-<p><img class="aligncenter size-full wp-image-1875" src="{{ site.baseurl }}/assets/2018/03/biome_detail_textures2.png" alt="" width="512" height="512" /></p>
+<p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/biome_detail_textures2.png" alt="" width="512" height="512" /></p>
 <p>Well, in reality I'm using a source image of 32x8192 which gets interpreted as a texture array of 256 slices, so that I don't have to write manual code for correct mipmapping in the texture atlas. From a quick performance test, there didn't seem to be much difference.</p>
 <p>So that's all for how we create the detail texture atlas! Now onto applying it. There's not much to write about how to apply it, as I'm just sampling the texture instead of using  a constant color. So, here's a before/after comparison:</p>
-<p><img class="aligncenter size-full wp-image-1879" src="{{ site.baseurl }}/assets/2018/03/original.png" alt="" width="1023" height="1025" /></p>
-<p><img class="aligncenter size-full wp-image-1878" src="{{ site.baseurl }}/assets/2018/03/nodetail.png" alt="" width="1023" height="1025" /></p>
-<p><img class="aligncenter size-full wp-image-1876" src="{{ site.baseurl }}/assets/2018/03/detail.png" alt="" width="1023" height="1025" /></p>
-<p><img class="aligncenter size-full wp-image-1877" src="{{ site.baseurl }}/assets/2018/03/detail_coast.png" alt="" width="1023" height="1025" /></p>
+<p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/original.png" alt="" width="1023" height="1025" /></p>
+<p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/nodetail.png" alt="" width="1023" height="1025" /></p>
+<p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/detail.png" alt="" width="1023" height="1025" /></p>
+<p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/detail_coast.png" alt="" width="1023" height="1025" /></p>
 <p>For the observant readers: there's some slight artifact at the tile borders in the above images (and the video below) - this was some incorrect fract() operator on the UV coordinates, this has now been fixed. Here's the associated video in all its animated glory:</p>
 <div class="video-container">
 	<iframe src="https://www.youtube.com/embed/iGB0-cGFz-w" allowfullscreen="" frameborder="0">
@@ -84,11 +88,12 @@ permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 </ul>
 <p>We need to have recorded the distance field value of the biome in layer index 1, regardless of the layer we're on. This ensures that this is the distance of the first water layer to the coast, which is what we need (the "to the coast" is the crucial bit, as the distance field records values against the previous layer, and we don't want abyssal sea distance to deep sea, if coast, deep sea and abyssal sea are layers on the same tile)</p>
 <p>So, now that we have these, we need to compute the waves. For the waves, I'll let code do the talking, as it is noise, domain warping, and the usual:</p>
-<pre class="EnlighterJSRAW" data-enlighter-language="cpp">float t = g_TotalTime*3;
+{% highlight cpp %}
+float t = g_TotalTime*3;
 t += 4.1*( snoise2(var_actual_pos*1)*0.5 + 0.5);
 float cmpDist = 0.45 + 0.02*(sin(t)*0.5 + 0.5);
 cmpDist = 0.41;
-if ( layer1dist &gt; cmpDist)
+if ( layer1dist > cmpDist)
 {
     vec3 coastal_water_color = vec3(0.7,0.95,1.0);
     
@@ -103,6 +108,7 @@ if ( layer1dist &gt; cmpDist)
     
     mixFactor *= dn; // smoothly fade out the wave at the boundary distance
     curcolor.xyz = mix( curcolor.xyz, coastal_water_color.xyz, mixFactor);
-}</pre>
+}
+{% endhighlight %}
 <p>On note about the cmpDist variable. 0.5 is exactly at the boundary ( I encode a signed distance field in [0,1]), and a value slightly away from the coast would be around 0.45.</p>
 <p>Next time I'll try my luck with prop placement, and I'll see if I can extract any sample props from that HoMM resource again for test use. But I might actually stop soon with the art, as I think now it should be good enough.</p>

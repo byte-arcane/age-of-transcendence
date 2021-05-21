@@ -26,7 +26,7 @@ author:
 permalink: "/2020/06/05/overworld-graphics-redux-vegetation/"
 ---
 <p><!-- wp:image {"id":2884,"sizeSlug":"large"} --></p>
-<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/2020/06/image.png?fit=630%2C433&amp;ssl=1" alt="" class="wp-image-2884" /><br />
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/2020/06/image-old.png?fit=630%2C433&amp;ssl=1" alt="" class="wp-image-2884" /><br />
 <figcaption><em>New graphics (WIP)</em></figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -48,7 +48,7 @@ permalink: "/2020/06/05/overworld-graphics-redux-vegetation/"
 <p>Many 2D games (such as HoMM 3) use a 2D grid for placing things such as walls, floors, objects, trees, creatures, etc. Techniques such as autotiling, in addition to well-designed art, can hide the nature of the grid. HoMM 3 is again a really good example of this:</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image {"id":2886,"sizeSlug":"large"} --></p>
-<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/2020/06/image-1.png?fit=630%2C334&amp;ssl=1" alt="" class="wp-image-2886" /><br />
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/2020/06/homm3-maped.png?fit=630%2C334&amp;ssl=1" alt="" class="wp-image-2886" /><br />
 <figcaption><em>A HoMM 3 level in the map editor, showing the grid nature of the graphics</em></figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -58,7 +58,7 @@ permalink: "/2020/06/05/overworld-graphics-redux-vegetation/"
 <p><!-- wp:core-embed/imgur {"url":"https://i.imgur.com/rNR1wVy.gif","type":"rich","providerNameSlug":"imgur","className":""} --></p>
 <figure class="wp-block-embed-imgur wp-block-embed is-type-rich is-provider-imgur">
 <div class="wp-block-embed__wrapper">
-https://i.imgur.com/rNR1wVy.gif
+<img src="https://i.imgur.com/rNR1wVy.gif" alt="" class="wp-image-2886" />
 </div>
 <figcaption><em>Source: https://pixelation.org/index.php?topic=9865.msg107117#msg107117</em></figcaption>
 </figure>
@@ -106,7 +106,8 @@ https://i.imgur.com/rNR1wVy.gif
 <p>So, how do we generate the positions for all trees? Here's some pseudocode:</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:enlighter/codeblock {"language":"cpp"} --></p>
-<pre class="EnlighterJSRAW" data-enlighter-language="cpp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// 64 variations of 8 positions within the unit square
+{% highlight python %}
+// 64 variations of 8 positions within the unit square
 vec2 poisson_sample_sets[64][8] = ... 
 for each grid cell on the map:
 	// select a random set
@@ -116,7 +117,8 @@ for each grid cell on the map:
 	// create a random starting element for this sample set
 	i0 = hash( cell_coordinate + 123 ) % N
 	for each i in N:
-		sample = pset[(i0 + i)%N]</pre>
+		sample = pset[(i0 + i)%N]
+{% endhighlight %}
 <p><!-- /wp:enlighter/codeblock --></p>
 <p><!-- wp:paragraph --></p>
 <p>So, we need to randomize a lot, but also be consistent: e.g. the elements for each tile must all use the same sample set. Also, if 2 tiles use the same sample set and need to place 4 out of 8 trees, by starting at different positions in the sample set guarantees greater variety.</p>
@@ -185,7 +187,7 @@ for each grid cell on the map:
 <p>Sprites such as trees are also called "<a href="http://www.computer-graphics.se/TSBK07-files/pdf17/10c%20Billboards.pdf">billboards</a>" in 3D graphics: they look like they are facing the viewer. The sprites typically look like a picture taken in front of the tree: the bottom part is the trunk, and the top is the canopy. Therefore we can say that the Y axis roughly corresponds to height. Here are some examples:</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/06/aa1991a658869216ef8656a6c2c6805a.png" alt="Trees trees trees! (With images) | Pixel art design, Pixel art ..." /><br />
+<figure class="wp-block-image"><img class="imgc" src="{{ site.baseurl }}/assets/2020/06/aa1991a658869216ef8656a6c2c6805a.png" alt="Trees trees trees! (With images) | Pixel art design, Pixel art ..." /><br />
 <figcaption><em>Source: http://pixeljoint.com/pixelart/119151.htm</em></figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -193,7 +195,7 @@ for each grid cell on the map:
 <p>Some other sprites, such as flowers or bushes, look as viewed from above, rather than from the front (as was with trees). In this case, the image Y axis does <strong>not</strong> correspond to height anymore, but corresponds to depth instead. Let's call these "decals", as they are like stickers over the terrain. Several shown below:</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image {"id":2893,"width":574,"height":479,"sizeSlug":"large"} --></p>
-<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/2020/06/image-6.png" alt="" class="wp-image-2893" width="574" height="479" /><br />
+<figure class="wp-block-image size-large is-resized"><img class="imgc" src="{{ site.baseurl }}/assets/2020/06/image-6.png" alt="" class="wp-image-2893" width="574" height="479" /><br />
 <figcaption><em>Source: https://thestoryteller01.files.wordpress.com/2014/07/vx-plants-tileset1.png</em></figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -223,7 +225,7 @@ for each grid cell on the map:
 <p>When we're rendering sprites, such as the troll or the trees, the bottom part touches the ground (Z=0) while the top part has some height (e.g. Z=1). By doing just this, we've ensured correct rendering. Below is an example of 3 trees rendered like this, in 3 subsequent grid cells (side view):</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image {"id":2894,"sizeSlug":"large"} --></p>
-<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/2020/06/image-7.png" alt="" class="wp-image-2894" /></figure>
+<figure class="wp-block-image size-large"><img class="imgc" src="{{ site.baseurl }}/assets/2020/06/image-7.png" alt="" class="wp-image-2894" /></figure>
 <p><!-- /wp:image --></p>
 <p><!-- wp:paragraph --></p>
 <p>You can see that the camera ray might not reach the trunk of the middle tree as it might be obscured by the canopy of the right tree. So, because of the need for depth, we need to use alpha masking instead of blending.</p>

@@ -81,15 +81,17 @@ permalink: "/2020/05/22/weather-and-performance/"
 <p>One fun tidbit. You need to remember to call Dispose() when you're done with a resource. All my systems might store Native2D arrays, and the obvious thing to do is, whenever I add a new NativeArray variable, also remember to put it in the Dispose function of that system. But here is where reflection comes to the rescue! This code is put in the base system class:</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:enlighter/codeblock {"language":"csharp"} --></p>
-<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">public void Dispose() 
+{% highlight csharp %}
+public void Dispose() 
 {
-	var type = GetType();
-	foreach (var f in type.GetFields(BindingFlags.Public | 
-									 BindingFlags.NonPublic | 
-									 BindingFlags.Instance))
-		if (typeof(IDisposable).IsAssignableFrom(f.FieldType))
-			((IDisposable)f.GetValue(this))?.Dispose();
-}</pre>
+    var type = GetType();
+    foreach (var f in type.GetFields(BindingFlags.Public | 
+                                     BindingFlags.NonPublic | 
+                                     BindingFlags.Instance))
+        if (typeof(IDisposable).IsAssignableFrom(f.FieldType))
+            ((IDisposable)f.GetValue(this))?.Dispose();
+}
+{% endhighlight %}
 <p><!-- /wp:enlighter/codeblock --></p>
 <p><!-- wp:paragraph --></p>
 <p>This beauty here does the following cheat: it finds all variables that implement the IDisposable interface, and calls the Dispose function. So, when I add a new NativeArray variable in a system, I need to remember <strong>absolutely nothing</strong>, as this function will find it for me and call Dispose. I love reflection!</p>

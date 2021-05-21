@@ -15,6 +15,7 @@
 }
 
 img {
+  display: block;
   width: auto;
   height: auto;
   vertical-align: middle;
@@ -24,8 +25,7 @@ img {
 .imgc {
   width: auto;
   height: auto;
-  vertical-align: middle;
-  margin: 0 auto;
+  margin: auto;
 }
 
 .imgmax {
@@ -34,6 +34,15 @@ img {
   vertical-align: middle;
   margin-top: 1em;
 }
+
+.imghstack {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  vertical-align: middle;
+  margin-top: 1em;
+}
+
 
 figcaption {
 	font-style: italic;

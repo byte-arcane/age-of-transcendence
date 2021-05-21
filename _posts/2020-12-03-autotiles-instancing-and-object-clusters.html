@@ -106,50 +106,50 @@ permalink: "/2020/12/03/autotiles-instancing-and-object-clusters/"
 <p><!-- wp:enlighter/codeblock --></p>
 <pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">Shader "Sprite/TextureAtlasSpriteRegular"
 {
-	Properties
-	{
-		g_TextureAtlasSprites("TextureAtlasSprites", 2DArray) = "white" {}
-		g_TextureAtlasConstants("TextureAtlasConstants", Vector) = (32,32,1,0)
-		g_RealTime("Real time", int) = 0
-		g_RenderingMoveSpeed("Rendering move speed", float) = 1
-	}
-		SubShader
-		{
-			Tags { "Queue" = "AlphaTest" "RenderType" = "Opaque" }
-			LOD 100
+  Properties
+  {
+    g_TextureAtlasSprites("TextureAtlasSprites", 2DArray) = "white" {}
+    g_TextureAtlasConstants("TextureAtlasConstants", Vector) = (32,32,1,0)
+    g_RealTime("Real time", int) = 0
+    g_RenderingMoveSpeed("Rendering move speed", float) = 1
+  }
+    SubShader
+    {
+      Tags { "Queue" = "AlphaTest" "RenderType" = "Opaque" }
+      LOD 100
 
-			AlphaToMask On
+      AlphaToMask On
 
-			Pass
-			{
-				CGPROGRAM
-				#pragma vertex vert
-				#pragma fragment frag
-				#pragma target 4.5
+      Pass
+      {
+        CGPROGRAM
+        #pragma vertex vert
+        #pragma fragment frag
+        #pragma target 4.5
 
-				#define VARIANT_REGULAR
-				#pragma multi_compile_local VARIANT_ORIENTATION_DECAL VARIANT_ORIENTATION_STANDING
-				#pragma multi_compile_local VARIANT_SPRITETYPE_STATIC VARIANT_SPRITETYPE_MOVING VARIANT_SPRITETYPE_SPLAT
+        #define VARIANT_REGULAR
+        #pragma multi_compile_local VARIANT_ORIENTATION_DECAL VARIANT_ORIENTATION_STANDING
+        #pragma multi_compile_local VARIANT_SPRITETYPE_STATIC VARIANT_SPRITETYPE_MOVING VARIANT_SPRITETYPE_SPLAT
 
-				#pragma multi_compile_instancing
-				//#pragma instancing_options procedural:setup
+        #pragma multi_compile_instancing
+        //#pragma instancing_options procedural:setup
 
-				#include "UnityCG.cginc"
+        #include "UnityCG.cginc"
 
-				#include "Assets/Shaders/common.cginc"
-				#include "Assets/Shaders/sprite.cginc"
-				#include "Assets/Shaders/noise/random.cginc"
+        #include "Assets/Shaders/common.cginc"
+        #include "Assets/Shaders/sprite.cginc"
+        #include "Assets/Shaders/noise/random.cginc"
 
-				// We don't need this, as we don't have gameobjects and materials for each
-				UNITY_INSTANCING_BUFFER_START(Props)
-				UNITY_INSTANCING_BUFFER_END(Props)
+        // We don't need this, as we don't have gameobjects and materials for each
+        UNITY_INSTANCING_BUFFER_START(Props)
+        UNITY_INSTANCING_BUFFER_END(Props)
 
-				
-				#include "Assets/Shaders/Sprite/TextureAtlasSprite_common.cginc"
+        
+        #include "Assets/Shaders/Sprite/TextureAtlasSprite_common.cginc"
 
-				ENDCG
-			}
-		}
+        ENDCG
+      }
+    }
 }
 </pre>
 <p><!-- /wp:enlighter/codeblock --></p>
