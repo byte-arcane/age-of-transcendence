@@ -26,7 +26,7 @@ baseurl: "/age-of-transcendence/" # the subpath of your site, e.g. /blog
 url: "https://byte-arcane.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 #baseurl: ""
 #url : ""
-twitter_username: byte-arcane
+twitter_username: ByteArcane
 github_username:  byte-arcane
 
 markdown: kramdown
