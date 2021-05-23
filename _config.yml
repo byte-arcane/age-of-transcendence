@@ -37,9 +37,13 @@ kramdown:
 
 # Build settings
 theme: minima
+#theme: jekyll-theme-midnight # if only it worked for jekyll 4.2.x
 plugins:
   - jekyll-feed
   - jekyll-analytics
+  
+# Google Analytics
+google_analytics: G-TENV5J91CE
 
 # Exclude from processing.
 # The following items will not be processed, by default.
