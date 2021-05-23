@@ -1,14 +1,6 @@
 ---
 layout: default
 ---
-<script src="https://utteranc.es/client.js"
-        repo="byte-arcane.github.io/age-of-transcendence" 
-        issue-term="pathname"
-        theme="github-dark"
-        label="comment"
-        crossorigin="anonymous"
-        async>
-</script>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
@@ -30,6 +22,16 @@ layout: default
   {%- if site.disqus.shortname -%}
     {%- include disqus_comments.html -%}
   {%- endif -%}
+  
+  <script src="https://utteranc.es/client.js"
+        repo="byte-arcane.github.io/age-of-transcendence" 
+        issue-term="pathname"
+        theme="github-light"
+        label="comment"
+        crossorigin="anonymous"
+        async>
+  </script>
+  <noscript>Please enable JavaScript to view the comments powered by utteranc.es</a></noscript>
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
