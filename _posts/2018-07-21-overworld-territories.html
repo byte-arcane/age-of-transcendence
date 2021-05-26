@@ -19,7 +19,7 @@ meta:
 author:
 permalink: "/2018/07/21/overworld-territories/"
 ---
-<h3><img class="imgc" src="{{ site.baseurl }}/assets/2018/07/terrshot0.png" alt="" width="512" height="512" /> <img class="imgc" src="{{ site.baseurl }}/assets/2018/07/terrshot1.png" alt="" width="512" height="512" /></h3>
+<h3><img class="imgc" src="{{ site.baseurl }}/assets/2018/07/terrshot0.webp" alt="" width="512" height="512" /> <img class="imgc" src="{{ site.baseurl }}/assets/2018/07/terrshot1.webp" alt="" width="512" height="512" /></h3>
 <h3></h3>
 <h3></h3>
 <h3></h3>
@@ -52,7 +52,7 @@ permalink: "/2018/07/21/overworld-territories/"
 <p>We keep a very small per-source cache that stores the location and influence of each source -- that's it. We update the cache by adding/removing/modifying entries as needed</p>
 <p><strong>-&gt; Calculate front</strong></p>
 <p>We calculate all the border tiles of a source in the following way. We start with the influence source location (the city), and we slowly expand outwards the 4 directions (left, right, top,bottom). We expand towards a direction if a point is within the influence of the source. Below is an image that represents this outwards expansion (the center of the concentric squares is the influence source). In the image, I mark the boundary points; these are the points that have at least one neighbour that is outside the source's influence (they could belong to a different city, or they might be neutral). <strong>So, we slowly grow this axis aligned bounding box of the source's points, while adding all the border points to a "to process" list.</strong></p>
-<p><img class="imgc" src="{{ site.baseurl }}/assets/2018/07/borders_00867.png" alt="" width="512" height="512" /></p>
+<p><img class="imgc" src="{{ site.baseurl }}/assets/2018/07/borders_00867.webp" alt="" width="512" height="512" /></p>
 <p>&nbsp;</p>
 <p><strong>-&gt; Process queue</strong></p>
 <p>We have now a queue with a list of points to be processed. These are all the boundary points (For a newly created source, it's location is the one and single boundary point). The queue is a  <strong>priority queue: </strong>we add points accompanied by weights, where the weights represent how important it is to process the points first. The reason why a priority queue is important is because we want to avoid traversing tiles multiple times. Imagine the following scenario:</p>

@@ -42,7 +42,7 @@ permalink: "/2020/12/15/underwater-effect-decals-and-lz4-compression/"
 <p>Recently I refactored sprite rendering to use variants with <a href="{{ site.baseurl }}/2020/12/03/autotiles-instancing-and-object-clusters/" class="rank-math-link">multiple configuration variables</a>, one of them being the type of the pass being regular, shadow or occluded. The occluded pass is like the regular pass, but we draw in areas that fail the Z test, and make this pass semi-transparent. So far so good, and what does this have to do with the underwater effect? </p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/taWUYq2.png" alt="" /><br />
+<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/taWUYq2.webp" alt="" /><br />
 <figcaption>Starting point: creatures float over water. Not good!</figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -53,7 +53,7 @@ permalink: "/2020/12/15/underwater-effect-decals-and-lz4-compression/"
 <p>First we need to detect when we're on tiles with liquid. On those tiles, push the Z value further back: more for deep liquid, less for shallow liquid. Push the sprites so that part of the sprites is underground. <strong>Important:</strong> the position on screen is identical, I'm just pushing the Z value so that part of the sprite will fail the Z test</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/DYjaj7h.png" alt="" /><br />
+<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/DYjaj7h.webp" alt="" /><br />
 <figcaption>Change Z values when in liquid tiles, so half the sprite will fail the depth test</figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -64,7 +64,7 @@ permalink: "/2020/12/15/underwater-effect-decals-and-lz4-compression/"
 <p>Since there's going to be a part of the sprite that fails the Z test, this will pass the occluded pass test (which renders what fails Z test), so it really "just works" as long as no settings are changed (I had to hack things to show how it would look without the occluded pass running). The sprite portion that's underwater is naturally rendered with transparency.</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/6PPe4K2.png" alt="" /><br />
+<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/6PPe4K2.webp" alt="" /><br />
 <figcaption>The "occlusion rendering" pass automatically renders the missing parts with transparency</figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -72,7 +72,7 @@ permalink: "/2020/12/15/underwater-effect-decals-and-lz4-compression/"
 <p>And now for the fun of it, because we know that things get distorted underwater and that water is never perfectly still, especially as adventurers and monsters plow through it, we can add a little bit of distortion in the occluded area. So in the pixel shader, if the occluded area represents area-in-liquid (we already have used this info in the vertex shader to push the Z back), then we just apply some periodic distortion in the sampling of the horizontal texture coordinate. And here's the result!</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/ct46Due.png" alt="" /><br />
+<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/ct46Due.webp" alt="" /><br />
 <figcaption>When rendering occluded parts while in a liquid, mess up the u texture coordinates for a shimmer/distortion effect</figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -80,7 +80,7 @@ permalink: "/2020/12/15/underwater-effect-decals-and-lz4-compression/"
 <p>Finally, just to spice things up slightly more, items dropped underwater are slightly visible, and the level of visibility depends on the depth. So, in shallow liquid are generally faint, but in deeper water they are even more faint. Maybe I should make them completely invisible in deep water, but let's see, maybe later.</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/QP9wsvs.png" alt="" /><br />
+<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/2020/12/QP9wsvs.webp" alt="" /><br />
 <figcaption>A key on the ground (top-left), in shallow water (top middle) and deep water (bottom middle)</figcaption>
 </figure>
 <p><!-- /wp:image --></p>
@@ -94,7 +94,7 @@ permalink: "/2020/12/15/underwater-effect-decals-and-lz4-compression/"
 <p>What should have been a walk in the part, turned out to be a pain thanks to Unity's bad rendering debugging facilities. So, given the way I've structured the code, adding decals should have been a walk in the park. It's another sprite pass, and I implement it as a persistent particle system, where decals have a lifetime of 5-10 seconds, after which they fade out. So, I added a few blood spatter sprites, wrote a basic shader and hooked the systems up, and lo and behold, nothing to be seen. Long story short and a few hours later, the problem was that the Compute buffer (that I'm using to send instancing data) was set up on C# side to be 3 uints per element, and in the shader I had a StructuredBuffer&lt;uint&gt; that I was addressing by buffer[i*3+0], buffer[i*3+1] and buffer[i*3+2]. I was expecting that the memory would be aliased but that was not the case. And no errors of course did not help ("Hey, you're binding a uint3 buffer to an incompatible uint shader buffer!").  Anyway, long story short, that was it, and now we have decals. I hooked them up with damage, so that when a creature gets damaged it spawns a small blood spatter, and when it gets killed it spawns a big one. Yay for proof of concept, more to come when needed.</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:image {"id":3179,"sizeSlug":"large","linkDestination":"none"} --></p>
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/assets/2020/12/image-6.png"><img src="{{ site.baseurl }}/assets/2020/12/image-6_thumb740.png" alt="" class="wp-image-3179" /></a><br />
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/assets/2020/12/image-6.webp"><img src="{{ site.baseurl }}/assets/2020/12/image-6_thumb740.webp" alt="" class="wp-image-3179" /></a><br />
 <figcaption>Killing the ghost results in blood pool. Ok, maybe this needs changing. But hey, decals work!</figcaption>
 </figure>
 <p><!-- /wp:image --></p>

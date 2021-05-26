@@ -19,12 +19,12 @@ meta:
 author:
 permalink: "/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biomes-and-rivers/"
 ---
-<p><a href="{{ site.baseurl }}/assets/2018/02/ovwmasked.png"><img class="aligncenter size-full wp-image-1854" src="{{ site.baseurl }}/assets/2018/02/ovwmasked_thumb740.png" alt="" width="1152" height="576" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/02/ovwmasked.webp"><img class="aligncenter size-full wp-image-1854" src="{{ site.baseurl }}/assets/2018/02/ovwmasked_thumb740.webp" alt="" width="1152" height="576" /></a></p>
 <h2></h2>
 <h2>Biome masks</h2>
 <p>&nbsp;</p>
 <p><a href="{{ site.baseurl }}/2018/02/09/autotiling-adventures/">In the last article</a>, I described a way to autotile multiple biomes using a minimal set of mask shapes. I used a custom map for testing. This time, I use some shaders to generate the a nice big set of masks. In particular, I can generate for example 32 variations of each of the 4 shapes at 256x256 resolution. As we have 1 shape per RGBA texture component (our masks are grayscale), we need 32 RGBA textures, or a single 32-slice array. Stiching them up, the procedural masks look like this: (rows: variations, columns: shapes)</p>
-<p><a href="{{ site.baseurl }}/assets/2018/02/all_rmasks2.png"><img class="aligncenter size-full wp-image-1858" src="{{ site.baseurl }}/assets/2018/02/all_rmasks2_thumb740.png" alt="" width="1024" height="1793" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/02/all_rmasks2.webp"><img class="aligncenter size-full wp-image-1858" src="{{ site.baseurl }}/assets/2018/02/all_rmasks2_thumb740.webp" alt="" width="1024" height="1793" /></a></p>
 <p>&nbsp;</p>
 <p>These masks are generated using perlin noise, and then they are post-processed to remove floating islands. Here's how:</p>
 <ul>
@@ -33,7 +33,7 @@ permalink: "/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biome
 <li>Detect all white regions, sort them by area, and replace all but the largest 1 (or 2) with black (so we satisfy "always 1 or 2 white region" criterion</li>
 </ul>
 <p>Here are the steps visually: left is the original image, middle is with extraneous black areas removed, right is the final, with the extraneous white areas removed:</p>
-<p><img class="size-full wp-image-1862 alignnone" src="{{ site.baseurl }}/assets/2018/02/m0.png" alt="" width="256" height="256" /> <img class="size-full wp-image-1861 alignnone" src="{{ site.baseurl }}/assets/2018/02/m1.png" alt="" width="256" height="256" /> <img class="size-full wp-image-1860 alignnone" src="{{ site.baseurl }}/assets/2018/02/m2.png" alt="" width="256" height="256" /></p>
+<p><img class="size-full wp-image-1862 alignnone" src="{{ site.baseurl }}/assets/2018/02/m0.webp" alt="" width="256" height="256" /> <img class="size-full wp-image-1861 alignnone" src="{{ site.baseurl }}/assets/2018/02/m1.webp" alt="" width="256" height="256" /> <img class="size-full wp-image-1860 alignnone" src="{{ site.baseurl }}/assets/2018/02/m2.webp" alt="" width="256" height="256" /></p>
 <p>&nbsp;</p>
 <p>At this stage, we calculate the distance field for each of the masks. The distance field is 256x256 at this point. The maximum distance in the distance field is the length of the diagonal <em>diag = 256*sqrt(2)</em>; we normalize the values in the distance field from (-diag,diag) to (0,1), to be resolution independent. We now downsample the distance field to 32x32, so that it can still reconstruct the shape nicely. The data is stored in an RGBA8 texture. If each variation is an array slice, we end up with a texture array 32x32xN. To give some perspective, for 64 variations we need 32*32*64*4 bytes = 256K of memory, which is very little. Add a bit of extra for the mipmaps (which are good for filtering when zooming out further), and we're settled with the biome masks.</p>
 <h3>Rendering the biome masks</h3>
@@ -64,7 +64,7 @@ permalink: "/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biome
 <li>There is always a source/origin tile for rivers. The origin tile is always connected to one other tile.</li>
 </ul>
 <p>Given the above, we realize that we really need 5 different masks: origin, line, corner, t-junction and cross. Below is a list of examples:</p>
-<p><a href="{{ site.baseurl }}/assets/2018/02/all_rmasks_riverroad.png"><img class="aligncenter size-full wp-image-1855" src="{{ site.baseurl }}/assets/2018/02/all_rmasks_riverroad_thumb740.png" alt="" width="1280" height="4096" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/02/all_rmasks_riverroad.webp"><img class="aligncenter size-full wp-image-1855" src="{{ site.baseurl }}/assets/2018/02/all_rmasks_riverroad_thumb740.webp" alt="" width="1280" height="4096" /></a></p>
 <h2></h2>
 <p>We follow the same process as with the biome masks: we remove extraneous white/black regions, calculate distance fields and downsample to 32x32.</p>
 <p>Here's also a video that demonstrates all the mask shapes, procedurally generated, parameterized by time:</p>

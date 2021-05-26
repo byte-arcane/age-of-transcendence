@@ -32,8 +32,8 @@ permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 {% endhighlight %}
 <p>where file_in is the input 32x32 file, file_out is the output tiled file, and numrepeats is the number of tile repeats in each axis.</p>
 <p>Results look like this:</p>
-<p><figure><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/watrtl25.png" alt="" width="256" height="256" /><figcaption> Good tile</figcaption></figure></p>
-<p><figure><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/tgrd013.png" alt="" width="256" height="256" /><figcaption> Bad tile (it's a transition tile)</figcaption></figure></p>
+<p><figure><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/watrtl25.webp" alt="" width="256" height="256" /><figcaption> Good tile</figcaption></figure></p>
+<p><figure><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/tgrd013.webp" alt="" width="256" height="256" /><figcaption> Bad tile (it's a transition tile)</figcaption></figure></p>
 <p>So, great, now I have a list of tiles that are seamless with themselves. But, would they be seamless with other tiles?</p>
 <p><strong>Step 2: Add labels to tiles</strong></p>
 <p>Files are of the form "watrtl14.png", "tgrd023.png", etc. So, a prefix for the terrain type, and a number of the id. So, next step is to create images with a label in the middle of the image displaying the tile id:</p>
@@ -41,7 +41,7 @@ permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 "magick convert {} -gravity center -annotate +0+0 {} {}".format(file, label, file_out)
 {% endhighlight %}
 <p>Result is like this:</p>
-<p><img class="imgc" src="{{ site.baseurl }}/assets/2018/03/tsab003.png" alt="" width="32" height="32" /></p>
+<p><img class="imgc" src="{{ site.baseurl }}/assets/2018/03/tsab003.webp" alt="" width="32" height="32" /></p>
 <p>&nbsp;</p>
 <p><strong>Step 3: Montage of different, labeled tiles</strong></p>
 <p>So now here comes the fun part. As we have a version of all the images labeled, I run a montage again as in step 1, but with the following changes:</p>
@@ -49,23 +49,23 @@ permalink: "/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/"
 <li>Use the labeled images as the base tiles</li>
 <li>If we have 20 images for a terrain, I sample from this set randomly to populate a 12x12 tile grid. This will show what doesn't match with what else! Here's an example</li>
 </ul>
-<p><figure><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/tsub.png" alt="" width="384" height="384" /><figcaption> All tiles match well with each other!</figcaption></figure></p>
+<p><figure><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/tsub.webp" alt="" width="384" height="384" /><figcaption> All tiles match well with each other!</figcaption></figure></p>
 <p>&nbsp;</p>
 <p>
 <figure>
-<img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/tgrb.png" alt="" width="384" height="384" /> 
+<img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/tgrb.webp" alt="" width="384" height="384" /> 
 <figcaption>There are some tile IDs that are darker compared to their neighbours. Reading the labels, I can quickly identify them: 17,22,23,24,25</figcaption>
 </figure></p>
 <p><strong>Step 4: Assemble the texture array</strong></p>
 <p>Now I select which image set will be used for which biome, e.g. the water images are used for the water biomes (4 of them), by creating variants that are slightly processed in terms of histogram/levels. For each biome, I select a random subset of 16 images. As I have 16 biomes, I end up with 256 image.</p>
 <p>So, after a bit of work, the resulting texture looks like this:</p>
-<p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/biome_detail_textures2.png" alt="" width="512" height="512" /></p>
+<p><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/biome_detail_textures2.webp" alt="" width="512" height="512" /></p>
 <p>Well, in reality I'm using a source image of 32x8192 which gets interpreted as a texture array of 256 slices, so that I don't have to write manual code for correct mipmapping in the texture atlas. From a quick performance test, there didn't seem to be much difference.</p>
 <p>So that's all for how we create the detail texture atlas! Now onto applying it. There's not much to write about how to apply it, as I'm just sampling the texture instead of using  a constant color. So, here's a before/after comparison:</p>
-<p><a href="{{ site.baseurl }}/assets/2018/03/original.png"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/original_thumb740.png" alt="" width="1023" height="1025" /></a></p>
-<p><a href="{{ site.baseurl }}/assets/2018/03/nodetail.png"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/nodetail_thumb740.png" alt="" width="1023" height="1025" /></a></p>
-<p><a href="{{ site.baseurl }}/assets/2018/03/detail.png"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/detail_thumb740.png" alt="" width="1023" height="1025" /></a></p>
-<p><a href="{{ site.baseurl }}/assets/2018/03/detail_coast.png"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/detail_coast_thumb740.png" alt="" width="1023" height="1025" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/03/original.webp"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/original_thumb740.webp" alt="" width="1023" height="1025" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/03/nodetail.webp"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/nodetail_thumb740.webp" alt="" width="1023" height="1025" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/03/detail.webp"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/detail_thumb740.webp" alt="" width="1023" height="1025" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/03/detail_coast.webp"><img class="imgmax" src="{{ site.baseurl }}/assets/2018/03/detail_coast_thumb740.webp" alt="" width="1023" height="1025" /></a></p>
 <p>For the observant readers: there's some slight artifact at the tile borders in the above images (and the video below) - this was some incorrect fract() operator on the UV coordinates, this has now been fixed. Here's the associated video in all its animated glory:</p>
 <div class="video-container">
 	<iframe src="https://www.youtube.com/embed/iGB0-cGFz-w" allowfullscreen="" frameborder="0">

@@ -22,7 +22,7 @@ meta:
 author:
 permalink: "/2018/04/05/autotiling-adventures-part-iv-mountains-trees-and-props/"
 ---
-<p><a href="{{ site.baseurl }}/assets/2018/04/overworld_adventures_4.png"><img class="aligncenter size-full wp-image-1897" src="{{ site.baseurl }}/assets/2018/04/overworld_adventures_4_thumb740.png" alt="" width="1058" height="1082" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/04/overworld_adventures_4.webp"><img class="aligncenter size-full wp-image-1897" src="{{ site.baseurl }}/assets/2018/04/overworld_adventures_4_thumb740.webp" alt="" width="1058" height="1082" /></a></p>
 <p><a href="{{ site.baseurl }}/2018/03/08/autotiling-adventures-part-iii-detail-biome-textures/">Previously I utilized HoMM 3 assets for extracting biome detail textures. </a></p>
 <p>This time, the next logical step is to add more foreground detail, such as trees, rocks, mountains and other props. I continue to utilize HoMM 3 assets, as they work pretty well and are relatively close to how I'd like things to look.  Of course I'll eventually have to make my own, as these are not mine, but that's a problem for much, much later.</p>
 <p>The pipeline from start to end for adding such foreground detail can be summarized by the following: First, identify the assets of interest. Then, pack them in a texture atlas and create an associated data file with per-prop information. Then, write the logic to place props on a map based on biome information. Finally, use the prop placement data to render the props onscreen.</p>
@@ -64,7 +64,7 @@ permalink: "/2018/04/05/autotiling-adventures-part-iv-mountains-trees-and-props/
 <p><img class="aligncenter" src="{{ site.baseurl }}/assets/2018/04/Map%20Editor.jpg" /></p>
 <p>The red subtiles here mark the occupancy, while all other marked tiles (plus two unmarked with a bit of shadow) mark the renderable parts.</p>
 <p>Below is a packed atlas using all assets of interest.</p>
-<p><a href="{{ site.baseurl }}/assets/2018/04/props_atlas.png"><img class="aligncenter size-full wp-image-1891" src="{{ site.baseurl }}/assets/2018/04/props_atlas_thumb740.png" alt="" width="1760" height="1760" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/04/props_atlas.webp"><img class="aligncenter size-full wp-image-1891" src="{{ site.baseurl }}/assets/2018/04/props_atlas_thumb740.webp" alt="" width="1760" height="1760" /></a></p>
 <p>Some assets are animations, in which case we make sure they're on the same line. I used <a href="https://github.com/juj/RectangleBinPack">this packing code</a>. Atlas rectangles are named, and they use the Element ID as described above. One more interesting detail about the atlas is that the elements are packed in multiples of 32 pixels, so that means that I can have 6 mipmap levels and still not have any asset bleeding. I also generate a JSON file with the properties of each element.</p>
 <h3>Step 3: Place props based on biome data</h3>
 <p>Admittedly, I didn't put a supreme amount of effort in placing thing. Little effort yielded reasonable results, so that's ok for now. The placement is really simple. It is comprised of four stages: placing mountains, trees, props and cleaning up.</p>

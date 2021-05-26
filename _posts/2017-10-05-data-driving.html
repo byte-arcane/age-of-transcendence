@@ -21,7 +21,7 @@ permalink: "/2017/10/05/data-driving/"
 ---
 <p><strong>Data I/O modes</strong></p>
 <p>My goal is to have the vast majority of data (if not everything) loadable/configured from data files. Sometimes I might want to reload the data, while the game is running. I also want to be able to implement save/load functionality at some point. Additionally, I frequently want to visualize/display the data, for debugging/logging purposes. All these are constraints in the design of a data-driven system, and it's definitely not a simple problem to solve.</p>
-<p><img class="aligncenter wp-image-1615 size-full" src="{{ site.baseurl }}/assets/2017/10/data_driving_graph.png" alt="" width="551" height="667" /></p>
+<p><img class="aligncenter wp-image-1615 size-full" src="{{ site.baseurl }}/assets/2017/10/data_driving_graph.webp" alt="" width="551" height="667" /></p>
 <p>So, there are effectively 3 types of data transformation:</p>
 <ul>
 <li>Bidirectional 1:1 transformation of data to save state
@@ -49,4 +49,4 @@ permalink: "/2017/10/05/data-driving/"
 <p>Sometimes resources share partial configuration with other resources. To avoid having to duplication configuration parameters, the config system supports configuration inheritance: the configuration of a resource can contain an "@inherit" key, whose value is a registry entry name. The registry entry is cloned and used as a starting point for the rest of the initialization. For simplicity reasons, there's no multiple inheritance.</p>
 <p>"@inherit" is a special key, which is handled differently to other keys, as it specifies a registry entry to inherit from. Similarly, there's "@file", which loads the content of another json file at that spot. Additionally, there's "@factory" which specifies the factory to be used to create a polymorphic object. After an object has been constructed using "@factory", or cloned using "@inherit", it initializes itself further using the rest of the JSON block.</p>
 <p>And with the above, here's an example JSON file:</p>
-<p><img class="aligncenter wp-image-1615 size-full" src="{{ site.baseurl }}/assets/2017/10/example_json.png" alt="" width="551" height="667" /></p>
+<p><img class="aligncenter wp-image-1615 size-full" src="{{ site.baseurl }}/assets/2017/10/example_json.webp" alt="" width="551" height="667" /></p>

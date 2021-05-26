@@ -23,15 +23,15 @@ permalink: "/2017/01/11/hpa/"
 <p>I finally finished with the implementation of <a href="https://webdocs.cs.ualberta.ca/~mmueller/ps/hpastar.pdf">HPA*.</a></p>
 <p>The pathfinder can be parameterized on cluster size, cluster-local path quality, coarse path quality and minimum distance between entrances to name a few. Below are a few examples. HPA* is ideal for use for many unit pathfinding queries, which I intend to have in AoT.</p>
 <p>Clusters and entrances. Background is the movecost heatmap (blue: low move cost, red: high movecost)</p>
-<p><figure src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpathhpavis_true_false1.png" alt="output_overworld_navpathhpavis_true_false.png"/></p>
+<p><figure src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpathhpavis_true_false1.webp" alt="output_overworld_navpathhpavis_true_false.png"/></p>
 <p>Clusters, entrances and connections</p>
-<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpathhpavis_true_true.png" alt="output_overworld_navpathhpavis_true_true.png"/></p>
+<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpathhpavis_true_true.webp" alt="output_overworld_navpathhpavis_true_true.png"/></p>
 <p>Low quality path using HPA* (cost: 70.464)</p>
-<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q0_70-464.png" alt="output_overworld_navpath_q0_70.464.png"/></p>
+<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q0_70-464.webp" alt="output_overworld_navpath_q0_70.464.png"/></p>
 <p>High quality path using HPA* (cost: 25.349)</p>
-<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q9_25-3496.png" alt="output_overworld_navpath_q9_25.3496.png"/></p>
+<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q9_25-3496.webp" alt="output_overworld_navpath_q9_25.3496.png"/></p>
 <p>High quality path using regular A* (cost: 23.765)</p>
-<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q10_23-7657.png" alt="output_overworld_navpath_q10_23.7657.png"/></p>
+<p><img src="{{ site.baseurl }}/assets/2017/01/output_overworld_navpath_q10_23-7657.webp" alt="output_overworld_navpath_q10_23.7657.png"/></p>
 <p>&nbsp;</p>
 <p><strong>Dynamic path</strong></p>
 <p>The pathfinder works also with dynamic weights: when parts of the weights are updated, we only recalculate the cluster-local paths in the clusters that the weights are in, ie. minimizing A* calculations.</p>

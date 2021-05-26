@@ -59,7 +59,7 @@ author:
 permalink: "/2018/02/09/autotiling-adventures/"
 ---
 <p>So, we have a <a href="{{ site.baseurl }}/2017/12/14/overworld-map-generation/">procedurally generated biome map</a>, where each pixel is an individual biome. If we zoom in, it's obviously quite pixelated. If we add sprites, it just doesn't look right (besides the lighting and colors)</p>
-<p><a href="{{ site.baseurl }}/assets/2018/02/bb_topdown.png"><img class="aligncenter size-full wp-image-1744" src="{{ site.baseurl }}/assets/2018/02/bb_topdown_thumb740.png" alt="" width="1088" height="704" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/02/bb_topdown.webp"><img class="aligncenter size-full wp-image-1744" src="{{ site.baseurl }}/assets/2018/02/bb_topdown_thumb740.webp" alt="" width="1088" height="704" /></a></p>
 <p>We have reasonably detailed sprites on a single-colored squares. It's just ugly. We <strong>need</strong> to add some texture/detail.</p>
 <h1></h1>
 <h2 style="text-align: left;">Auto-tiling</h2>
@@ -94,7 +94,7 @@ https://forum.unity.com/threads/2d-tile-mapping-in-unity-demystified.441444/</p>
 <h2>Grid shifting</h2>
 <p>The first naive thought that comes to mind (and I went with it for a while actually) is "ok, we have a tile, it is neighbour to 4 or 8 other tiles, so generate masks according to that relationship". Example <a href="https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-auto-tile-your-level-layouts--cms-25673">here</a>. As one can see, the 4-connected version is less interesting than the 8-connected version (and we don't want less-interesting), but the 8-connected version results in a lot of combinations! So what do we do? Well, <a href="http://playtechs.blogspot.co.uk/2007/04/tileset-design-tip.html">we shift the grid</a>. This way, we always have 4 potentially different tiles (quarters of them anyway)</p>
 <p>Below, we shift the whole grid top-left by half a tile. Now, each grid cell (<strong>red</strong>) always contains parts of 4 tiles.</p>
-<p><a href="{{ site.baseurl }}/assets/2018/02/autotile_corner_offset.png"><img class="aligncenter size-full wp-image-1825" src="{{ site.baseurl }}/assets/2018/02/autotile_corner_offset_thumb740.png" alt="" width="1000" height="562" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/2018/02/autotile_corner_offset.webp"><img class="aligncenter size-full wp-image-1825" src="{{ site.baseurl }}/assets/2018/02/autotile_corner_offset_thumb740.webp" alt="" width="1000" height="562" /></a></p>
 <p>While this is mentioned in a few articles, it's demonstrated perfectly in a non-technical article, <a href="https://pixelation.org/index.php?topic=9865.msg107117#msg107117">here</a>. That's what sold me, as I find the results amazing!</p>
 <p>&nbsp;</p>
 <h2>Reducing unique combinations</h2>
@@ -110,7 +110,7 @@ https://forum.unity.com/threads/2d-tile-mapping-in-unity-demystified.441444/</p>
 <li>No 5,12 contains no spatially varying data</li>
 </ul>
 <p>This implies that the only unique tiles are 1,4,10,15,5,12. Furthermore, the only unique tiles with spatially varying data are 1,4,10,15. So, that is 4 tiles instead of 16. We can arrange such a mask of 4 tiles like this:</p>
-<p><img class="aligncenter size-full wp-image-1828" src="{{ site.baseurl }}/assets/2018/02/autotile_mask.png" alt="" width="258" height="1026" /></p>
+<p><img class="aligncenter size-full wp-image-1828" src="{{ site.baseurl }}/assets/2018/02/autotile_mask.webp" alt="" width="258" height="1026" /></p>
 <p>This has a nice continuous shape, if for example we want to ask an artist to draw some of those. Note that with this arrangement, the transformation will differ, as now the masks are already transformed compared to what I showed above. What's really important is that the amount of white vs black at the borders that contain both <strong>needs to always match, </strong>so that tiles are seamlessly combined. In my case above, I'm splitting them at 50%, but that's of course configurable. What I'm not going to cover, as I've given it some thought and gets very complicated, is to support variable black/white border percentages, ensuring that they match There are many more complications involved and I'm not sure if it's worth it in the end.</p>
 <p>So, now we have 4 unique combinations. These can be nicely stored in an RGBA texture (one mask per channel) by converting the above 1x4 tile image. In the shader, given a mask value in [0,15], we effectively do the following:</p>
 {% highlight cpp %}
@@ -150,10 +150,10 @@ switch(mask_unique)
 </ul>
 <p>By applying these two, for my test map I reduced the number of tiles to 0.4 million, which is 10x better. Of course, that's still a lot, but it doesn't take into account any spatial hierarchy and other optimisations that could be done.</p>
 <p>Here are some examples using the above un-nice mask. Zoomed-out:</p>
-<p><img src="{{ site.baseurl }}/assets/2018/02/noautotile_zoomout.png" alt="" width="508" height="509" /> <img class="aligncenter size-full wp-image-1837" src="{{ site.baseurl }}/assets/2018/02/autotile_zoomout.png" alt="" width="508" height="509" /></p>
+<p><img src="{{ site.baseurl }}/assets/2018/02/noautotile_zoomout.webp" alt="" width="508" height="509" /> <img class="aligncenter size-full wp-image-1837" src="{{ site.baseurl }}/assets/2018/02/autotile_zoomout.webp" alt="" width="508" height="509" /></p>
 <p>Zoomed-in</p>
-<p><img class="aligncenter size-full wp-image-1838" src="{{ site.baseurl }}/assets/2018/02/noautotile_zoomin.png" alt="" width="508" height="509" /></p>
-<p><img class="aligncenter size-full wp-image-1835" src="{{ site.baseurl }}/assets/2018/02/autotile_zoomin.png" alt="" width="508" height="509" /></p>
+<p><img class="aligncenter size-full wp-image-1838" src="{{ site.baseurl }}/assets/2018/02/noautotile_zoomin.webp" alt="" width="508" height="509" /></p>
+<p><img class="aligncenter size-full wp-image-1835" src="{{ site.baseurl }}/assets/2018/02/autotile_zoomin.webp" alt="" width="508" height="509" /></p>
 <p>Ok, so my mask looks bad, and there's little to none variation, so you can see patterns everywhere.</p>
 <h2>Increasing variation</h2>
 <p>Using 256x256 masks, a single RGBA texture needs 256K of memory. We can have a texture array of such masks, using however many layers we can afford memory-wise. In runtime, we can select the layer based on various conditions. E.g. some texture layers could contain transition masks for particular biomes, or more generally, we can select a layer based on a function of the tile coordinates.</p>
