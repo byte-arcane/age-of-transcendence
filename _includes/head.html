@@ -20,15 +20,17 @@
 	<meta name="twitter:description" content="{{ site.description }}">
 	{% endif %}
 
-	{% if page.image %}
-	<meta name="twitter:card"  content="summary_large_image">
-	<meta name="twitter:image" content="{{ site.url }}{{ site.baseurl }}{{ page.image }}">
-	{% elsif page.video %}
+	
+	{% if page.video %}
 	<meta name="twitter:card"  content="player">
+	<meta name="twitter:image" content="{{ site.url }}{{ site.baseurl }}{{ page.image }}">
 	<meta name="twitter:player" content="{{ site.url }}{{ site.baseurl }}{{ page.video }}">
 	<meta name="twitter:player:stream" content="{{ site.url }}{{ site.baseurl }}{{ page.video }}">
 	<meta name="twitter:player:width" content="320">
 	<meta name="twitter:player:height" content="200">
+	{% elsif page.image %}
+	<meta name="twitter:card"  content="summary_large_image">
+	<meta name="twitter:image" content="{{ site.url }}{{ site.baseurl }}{{ page.image }}">
 	{% else %}
 	<meta name="twitter:card"  content="summary">
 	<meta name="twitter:image" content="{{ site.title_image }}">
