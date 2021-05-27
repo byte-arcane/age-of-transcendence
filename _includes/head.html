@@ -26,6 +26,7 @@
 	{% elsif page.video %}
 	<meta name="twitter:card"  content="player">
 	<meta name="twitter:player" content="{{ site.url }}{{ site.baseurl }}{{ page.video }}">
+	<meta name="twitter:player:stream" content="{{ site.url }}{{ site.baseurl }}{{ page.video }}">
 	<meta name="twitter:player:width" content="320">
 	<meta name="twitter:player:height" content="200">
 	{% else %}
