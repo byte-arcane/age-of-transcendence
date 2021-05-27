@@ -22,10 +22,10 @@
 
 	{% if page.image %}
 	<meta name="twitter:card"  content="summary_large_image">
-	<meta name="twitter:image" content="{{ site.url }}{{ page.image }}">
+	<meta name="twitter:image" content="{{ site.baseurl }}{{ page.image }}">
 	{% elsif page.video %}
 	<meta name="twitter:card"  content="summary_large_image">
-	<meta name="twitter:image" content="{{ site.url }}{{ page.video }}">
+	<meta name="twitter:image" content="{{ site.baseurl }}{{ page.video }}">
 	{% else %}
 	<meta name="twitter:card"  content="summary">
 	<meta name="twitter:image" content="{{ site.title_image }}">
