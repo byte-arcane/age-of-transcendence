@@ -59,14 +59,14 @@ permalink: "/2020/06/11/procedural-generation-of-painterly-mountains/"
 <p><!-- /wp:heading --></p>
 <p><!-- wp:list --></p>
 <ul>
-<li>Perlin noise added to a sort-of-bell-curve, to generate outline</li>
-<li>Pick the top point and generate downwards "main" ridge, using some more perlin noise</li>
+<li>Simplex noise added to a sort-of-bell-curve, to generate outline</li>
+<li>Pick the top point and generate downwards "main" ridge, using some more Simplex noise</li>
 <li>Maybe generate some mini ridges at <a href="https://en.wikipedia.org/wiki/Stationary_point">stationary </a>points, mostly using same settings but smaller length</li>
 <li>Identify "left" and "right" sides of mountain, and make sure the "left" side is lit better</li>
 <li>Calculate distance field from main ridge, and use it for shading</li>
 <li>Calculate dijkstra map using all ridge points and outline points as goals, and use it for shading</li>
-<li>Calculate a downwards slope direction for each of the "left" and "right" sides, and use that to distort a perlin noise domain, which we sample to change the shading even more</li>
-<li>Use perlin noise to calculate the tree line, also based on the highest peak</li>
+<li>Calculate a downwards slope direction for each of the "left" and "right" sides, and use that to distort a Simplex noise domain, which we sample to change the shading even more</li>
+<li>Use Simplex noise to calculate the tree line, also based on the highest peak</li>
 </ul>
 <p><!-- /wp:list --></p>
 <p><!-- wp:heading {"level":4} --></p>
@@ -80,7 +80,7 @@ permalink: "/2020/06/11/procedural-generation-of-painterly-mountains/"
 <li>shading based on pathfinding distance to the outline (a bit darker near the outline)</li>
 <li>side: 1 if on the left side, 0.75 if on the right side of the main ridge</li>
 <li>shading based on pathfinding distance to the main ridge (a bit lighter near the main ridge)</li>
-<li>domain-warped perlin, different distortion based on the side of the mountain (left/right)</li>
+<li>domain-warped Simplex, different distortion based on the side of the mountain (left/right)</li>
 </ul>
 <p><!-- /wp:list --></p>
 <p><!-- wp:paragraph --></p>

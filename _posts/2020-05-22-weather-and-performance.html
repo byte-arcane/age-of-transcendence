@@ -39,7 +39,7 @@ permalink: "/2020/05/22/weather-and-performance/"
 </figure>
 <p><!-- /wp:core-embed/youtube --></p>
 <p><!-- wp:paragraph --></p>
-<p>All these are things I've wanted to find an excuse to do at some point, so here we are. Fog ended up pretty good. It's some simple pixelated perlin noise, by applying banding to both the output luminance (to create the limited-color-palette effect) AND to the 2D coordinates used to sample the noise function (to make fog look blocky). But we don't band the 3rd noise coordinate, which is time, so the effect remains nice and smooth. Fog will be applied In The Future when the biome's humidity is pretty high, and it's late at night or early in the day (I know, it's a gross simplification, but I don't plan for soil humidity simulation)</p>
+<p>All these are things I've wanted to find an excuse to do at some point, so here we are. Fog ended up pretty good. It's some simple pixelated Simplex noise, by applying banding to both the output luminance (to create the limited-color-palette effect) AND to the 2D coordinates used to sample the noise function (to make fog look blocky). But we don't band the 3rd noise coordinate, which is time, so the effect remains nice and smooth. Fog will be applied In The Future when the biome's humidity is pretty high, and it's late at night or early in the day (I know, it's a gross simplification, but I don't plan for soil humidity simulation)</p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:paragraph --></p>
 <p>Heat haze is again pretty simple: we just sample the noise function and adjust the horizontal UVs slightly, in a periodic manner. This will be applied In The Future mostly in the deserts during daytime, or in any other case where the ambient temperature is very high.</p>

@@ -26,7 +26,7 @@ permalink: "/2018/02/23/autotiling-adventures-part-ii-procedural-masks-for-biome
 <p><a href="{{ site.baseurl }}/2018/02/09/autotiling-adventures/">In the last article</a>, I described a way to autotile multiple biomes using a minimal set of mask shapes. I used a custom map for testing. This time, I use some shaders to generate the a nice big set of masks. In particular, I can generate for example 32 variations of each of the 4 shapes at 256x256 resolution. As we have 1 shape per RGBA texture component (our masks are grayscale), we need 32 RGBA textures, or a single 32-slice array. Stiching them up, the procedural masks look like this: (rows: variations, columns: shapes)</p>
 <p><a href="{{ site.baseurl }}/assets/2018/02/all_rmasks2.webp"><img class="aligncenter size-full wp-image-1858" src="{{ site.baseurl }}/assets/2018/02/all_rmasks2_thumb740.webp" alt="" width="1024" height="1793" /></a></p>
 <p>&nbsp;</p>
-<p>These masks are generated using perlin noise, and then they are post-processed to remove floating islands. Here's how:</p>
+<p>These masks are generated using Simplex noise, and then they are post-processed to remove floating islands. Here's how:</p>
 <ul>
 <li>We know that each shape contains 1 or 2 white regions and always 1 black region</li>
 <li>Detect all the black regions, sort them by area, and replace all but the largest with white (so we satisfy "always 1 black region" criterion)</li>
