@@ -68,8 +68,6 @@ permalink: "/2022/01/20/composable-sprites-part-1/"
 <p><strong>45-degree sprite rotation</strong> </p>
 <p>A hyper-specific solution to a problem that maybe nobody cares about (except me?). So, you know all these endless sprite packs where the weapon icons are along the main diagonal? That&#39;s great, and they do it for the extra real-estate, but the problem is that my sprites never hold weapons at such an angle (because they also obstruct the face). <a href="{{ site.baseurl }}/assets/2022/01/handsfree.png">Look at the first image</a>. On the &quot;left&quot; (as we see it) hand, there&#39;s only space to put a weapon that extends upwards. On the right hand, the held weapon can either extend upwards (tangential to ground), either fully to the left (parallel to ground), or a bit angled (almost parallel to ground, but weapon tip slightly higher). So this means that diagonally-oriented weapons would need to be rotated either +45 degrees, or -45 degrees, or about 30 degrees. So, what do we do? Well I developed a really simple transformation that works just for 45 degrees, and is not destructive at all. Here&#39;s an example, and needless to say, I&#39;m super happy with the results!</p>
 
-
-
 <figure><img src="{{ site.baseurl }}/assets/2022/01/weapon_sword_07_warped.png" alt=""/><br />
 <figcaption>Original</figcaption>
 </figure>
