@@ -30,7 +30,7 @@ parser.add_argument('-i', '--image', help="image", type=str, required=False)
 parser.add_argument('-v', '--video', help="video", type=str, required=False)
 args = parser.parse_args()
 
-title_dash = args.title.lower().replace(' ','-').replace('\'','')
+title_dash = args.title.lower().replace(' ','-').replace('\'','').replace(',','')
 
 (day,month,year) = args.date.split('/')
 if len(year) == 2:
