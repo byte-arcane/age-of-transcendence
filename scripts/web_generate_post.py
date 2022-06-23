@@ -56,8 +56,12 @@ fmt = fmt.replace('$DAY',day)
 fmt = fmt.replace('$TITLE_DASH',title_dash)
 fmt = fmt.replace('$TITLE',args.title)
 
-fp = open( os.path.dirname(__file__) + f'/../_posts/{year}-{month}-{day}-{title_dash}.html', 'wt')
-fp.write(fmt)
+fname =  os.path.dirname(__file__) + f'/../_posts/{year}-{month}-{day}-{title_dash}.html'
+with open( fname, 'wt') as fp:
+    fp.write(fmt)
+os.startfile(fname)
+
+
 
 # Example call: web_generate_post.py --title "My awesome post" --date 2/4/22 --video some_amazing_stuff_tw.mp4
 # Then fill content with: https://markdowntohtml.com/
